@@ -7,6 +7,7 @@ import src.controller.*;
 
 public class Main {
     public static void main(String[] args) {
+        // inovokeLater is a Swing method that makes sure threading is handled properly
         SwingUtilities.invokeLater(() -> {
             LoginView loginView = new LoginView();
             GymSelectionView selectionView = new GymSelectionView();

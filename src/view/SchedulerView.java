@@ -8,7 +8,7 @@ public class SchedulerView extends JFrame {
 
     public SchedulerView() {
         setTitle("Scheduler");
-        setSize(500, 500);
+        setSize(360, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);

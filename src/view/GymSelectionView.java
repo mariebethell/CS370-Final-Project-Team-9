@@ -8,7 +8,7 @@ public class GymSelectionView extends JFrame{
 
     public GymSelectionView() {
         setTitle("Gym Selection");
-        setSize(300, 400);
+        setSize(360, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);

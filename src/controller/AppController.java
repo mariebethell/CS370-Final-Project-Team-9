@@ -1,3 +1,7 @@
+// The controller folder is where we put event listeners (i.e. addActionListner)
+// When an event is detected, we change the view or can modify some objects from the model folder
+// AppController name can be changed if necessary
+
 package src.controller;
 
 import src.view.*;
