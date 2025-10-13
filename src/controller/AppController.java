@@ -26,6 +26,7 @@ public class AppController {
             this.selectionView.setVisible(true);
         });
 
+
         // After the user has selected a gym, display the scheduler view
         this.selectionView.getSelectionButton().addActionListener(e -> {
             this.selectionView.setVisible(false);
