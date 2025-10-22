@@ -22,6 +22,7 @@ public class AppController {
         // Login screen is displayed when start() method is called from main
         // When the user 'logs in', we want to hide the login window and show the gym selection view
         this.loginView.getLoginButton().addActionListener(e -> {
+            //get username and password from text fields
             this.loginView.setVisible(false);
             this.selectionView.setVisible(true);
         });
