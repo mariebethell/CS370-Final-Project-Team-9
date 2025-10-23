@@ -28,7 +28,8 @@ public class Game {
         }
     }
 
-    public boolean isFull() {
-        return team1 != null && team2 != null;
+    public boolean gameFull() {
+        return team1.teamFull() && team2.teamFull();
     }
+    
 }

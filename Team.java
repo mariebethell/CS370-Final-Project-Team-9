@@ -7,10 +7,18 @@ public class Team{
         if(players.length < MAXCOUNT){
             players[players.length] = newPlayer;
         }
+        else{
+            System.out.println("Team is full, cannot add more players.");
+            //this turns into an error window
+        }
     }
     public Team(int teamNum){
         this.teamNum = teamNum;
         players = new Account[MAXCOUNT];
+    }
+
+    public boolean teamFull(){
+        return players.length == MAXCOUNT;
     }
 }
 
