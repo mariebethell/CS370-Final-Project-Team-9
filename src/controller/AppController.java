@@ -4,6 +4,10 @@
 
 package src.controller;
 
+import java.util.Arrays;
+
+import javax.swing.JFrame;
+
 import src.view.*;
 
 public class AppController {
@@ -23,9 +27,29 @@ public class AppController {
         // When the user 'logs in', we want to hide the login window and show the gym selection view
         this.loginView.getLoginButton().addActionListener(e -> {
             //get username and password from text fields
+            String AU1 = "Marie"; 
+            String AU2 = "Benjamin"; 
+            String AU3 = "Sarah"; 
+            String AU4 = "Logan"; 
+            char[] AP = {'p','a','s','s','w','o','r','d'};
+            
+
+                /*This section is to test the login function
+                 * - Right now if the wrong username or password is entered, error message prints to the terminal and not the page itself(need to fix)
+                 */
+            String inputUsername = this.loginView.getUserIDField();
+            char[] inputPassword = this.loginView.getPassword();
+            if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
+                if(Arrays.equals(inputPassword, AP)) {
+                    System.out.println("Login successful!");
+                } else {
+                    System.out.println("Incorrect password.");
+                    return;
+                }
+            }
             this.loginView.setVisible(false);
             this.selectionView.setVisible(true);
-        });
+    });
 
 
         // After the user has selected a gym, display the scheduler view
@@ -40,6 +64,7 @@ public class AppController {
             this.schedulerView.setVisible(false);
         });
     }
+
 
     // Call this method from main to start the app at the login screen
     public void start() {
