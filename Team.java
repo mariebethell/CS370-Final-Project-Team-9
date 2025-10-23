@@ -1,5 +1,5 @@
 public class Team{
-    int teamNum;
+    int teamNum; //determined based on whether or not they create the game
     Account[] players; //array of accounts
     private int MAXCOUNT = 5;
 

@@ -18,6 +18,7 @@ public class Game {
             this.team2 = team;
         }
     }//this might not be the best way to do this or the right spot
+    //team that creats game is team1 and can make changes
 
     public void removeTeam(int teamNum) {
         if(teamNum == 1) {
@@ -31,5 +32,5 @@ public class Game {
     public boolean gameFull() {
         return team1.teamFull() && team2.teamFull();
     }
-    
+
 }
