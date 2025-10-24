@@ -32,24 +32,40 @@ public class AppController {
             String AU3 = "Sarah"; 
             String AU4 = "Logan"; 
             char[] AP = {'p','a','s','s','w','o','r','d'};
-            
+            boolean loginSuccess = false;
 
                 /*This section is to test the login function
                  * - Right now if the wrong username or password is entered, error message prints to the terminal and not the page itself(need to fix)
                  */
-            String inputUsername = this.loginView.getUserIDField();
-            char[] inputPassword = this.loginView.getPassword();
+                String inputUsername = this.loginView.getUserIDField();
+                char[] inputPassword = this.loginView.getPassword();
+
+                while(!loginSuccess){
+
+            try{
+            //String inputUsername = this.loginView.getUserIDField();
+            //char[] inputPassword = this.loginView.getPassword();
             if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
                 if(Arrays.equals(inputPassword, AP)) {
                     System.out.println("Login successful!");
-                } else {
+                } /*else {
                     System.out.println("Incorrect password.");
                     return;
-                }
-            }
+                }*/
+            loginSuccess = true;
             this.loginView.setVisible(false);
             this.selectionView.setVisible(true);
+        }
+    } catch (Exception ex) {
+            System.out.println("Username or password incorrect: " + ex.getMessage());
+            throw ex;
+        }
+    
+    }
+        
+
     });
+
 
 
         // After the user has selected a gym, display the scheduler view

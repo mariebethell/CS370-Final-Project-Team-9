@@ -11,6 +11,7 @@ public class LoginView extends JFrame {
     private JLabel PasswordLabel = new JLabel("Password"); 
     private static JTextField UserIDField = new JTextField(10);
     private static JPasswordField PasswordField = new JPasswordField(10); 
+    //Private static errorLabel = new JLabel(""); 
 
 
     //PasswordField = this.LoginView().getLoginPanel().JPasswordField;
@@ -21,8 +22,8 @@ public class LoginView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setLocationRelativeTo(null);
-        add(loginButton);
-
+       // add(loginButton);
+        
         /* 
         UserIDLabel.setLabelFor(UserIDField);
         add(UserIDLabel);
@@ -41,10 +42,12 @@ public class LoginView extends JFrame {
     }
     public JPanel getLoginPanel() {
     JPanel panel = new JPanel(); 
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(UserIDLabel, BorderLayout.CENTER);
         panel.add(UserIDField, BorderLayout.CENTER);
         panel.add(PasswordLabel, BorderLayout.CENTER);
         panel.add(PasswordField, BorderLayout.CENTER);
+        panel.add(loginButton, BorderLayout.CENTER); 
         return panel;
     }
     public static String getUserIDField() {
@@ -59,5 +62,6 @@ public class LoginView extends JFrame {
     public char[] getPassword() {
         return PasswordField.getPassword();
     }   
+    
 
 }
