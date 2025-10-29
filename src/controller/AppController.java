@@ -66,13 +66,7 @@ public class AppController {
             return; 
         }
     }
-    /*if(loginFailed == false) {
-            this.loginView.setVisible(false);
-            this.selectionView.setVisible(true);
-            return; 
-        }
-*/
-
+    
     });
 
 
