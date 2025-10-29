@@ -36,6 +36,7 @@ public class AppController {
             char[] AP = {'p','a','s','s','w','o','r','d'};
             boolean loginFailed = true;
 
+            
  while(loginFailed == true) {
                 /*This section is to test the login function
                  * - Right now if the wrong username or password is entered, error message prints to the terminal and not the page itself(need to fix)
