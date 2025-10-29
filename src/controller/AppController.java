@@ -6,8 +6,10 @@ package src.controller;
 
 import java.util.Arrays;
 
+import javax.security.auth.login.LoginException;
 import javax.swing.JFrame;
 
+import src.model.User;
 import src.view.*;
 
 public class AppController {
@@ -32,41 +34,43 @@ public class AppController {
             String AU3 = "Sarah"; 
             String AU4 = "Logan"; 
             char[] AP = {'p','a','s','s','w','o','r','d'};
-            boolean loginSuccess = false;
+            boolean loginFailed = true;
 
+ while(loginFailed == true) {
                 /*This section is to test the login function
                  * - Right now if the wrong username or password is entered, error message prints to the terminal and not the page itself(need to fix)
                  */
                 String inputUsername = this.loginView.getUserIDField();
-                char[] inputPassword = this.loginView.getPassword();
-
-                while(!loginSuccess){
-                    if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
-                if(Arrays.equals(inputPassword, AP)) {
-                    System.out.println("Login successful!");
-                }
+                char[] inputPassword = this.loginView.getPassword(); 
             try{
-           /*  String inputUsername = this.loginView.getUserIDField();
-            char[] inputPassword = this.loginView.getPassword();
-            if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
+                if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
                 if(Arrays.equals(inputPassword, AP)) {
                     System.out.println("Login successful!");
-                } else {
-                    System.out.println("Incorrect password.");
-                    return;
-                }*/
-            loginSuccess = true;
+                    loginFailed = false;
+                }
+                 if(loginFailed == false) {
             this.loginView.setVisible(false);
             this.selectionView.setVisible(true);
+            return; 
         }
-         catch (Exception ex) {
-            System.out.println("Username or password incorrect: " + ex.getMessage());
-            throw ex;
-        }
-    
-    }
 
+        }
+        throw new LoginErrorException("Username or password incorrect.");
         
+
+    }
+     catch (LoginErrorException ex) {
+            System.out.println(ex.getMessage());
+            this.loginView.DisplayErrorMessageLabelVisible(ex.getMessage());
+            return; 
+        }
+    }
+    if(loginFailed == false) {
+            this.loginView.setVisible(false);
+            this.selectionView.setVisible(true);
+            return; 
+        }
+
 
     });
 
@@ -91,3 +95,9 @@ public class AppController {
         this.loginView.setVisible(true);
     }
 }
+
+class LoginErrorException extends Exception {
+        public LoginErrorException(String message) {
+            super(message);
+        }
+    }
