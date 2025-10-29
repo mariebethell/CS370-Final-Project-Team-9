@@ -41,14 +41,17 @@ public class AppController {
                 char[] inputPassword = this.loginView.getPassword();
 
                 while(!loginSuccess){
-
+                    if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
+                if(Arrays.equals(inputPassword, AP)) {
+                    System.out.println("Login successful!");
+                }
             try{
-            //String inputUsername = this.loginView.getUserIDField();
-            //char[] inputPassword = this.loginView.getPassword();
+           /*  String inputUsername = this.loginView.getUserIDField();
+            char[] inputPassword = this.loginView.getPassword();
             if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
                 if(Arrays.equals(inputPassword, AP)) {
                     System.out.println("Login successful!");
-                } /*else {
+                } else {
                     System.out.println("Incorrect password.");
                     return;
                 }*/
@@ -56,7 +59,7 @@ public class AppController {
             this.loginView.setVisible(false);
             this.selectionView.setVisible(true);
         }
-    } catch (Exception ex) {
+         catch (Exception ex) {
             System.out.println("Username or password incorrect: " + ex.getMessage());
             throw ex;
         }
