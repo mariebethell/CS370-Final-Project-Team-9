@@ -5,11 +5,6 @@
 package src.controller;
 
 import java.util.Arrays;
-
-import javax.security.auth.login.LoginException;
-import javax.swing.JFrame;
-
-import src.model.User;
 import src.view.*;
 
 public class AppController {
@@ -58,7 +53,7 @@ public class AppController {
                 }
                 catch (LoginErrorException ex) {
                         System.out.println(ex.getMessage());
-                        this.loginView.DisplayErrorMessageLabelVisible(ex.getMessage());
+                        this.loginView.displayErrorMessageLabelVisible(ex.getMessage());
                         return; 
                 }
             }

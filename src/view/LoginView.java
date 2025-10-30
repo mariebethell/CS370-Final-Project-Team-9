@@ -1,21 +1,16 @@
 package src.view;
 import javax.swing.*;
-//import src.model.User;
 
 import java.awt.*;
-
 
 public class LoginView extends JFrame {
     private JButton loginButton = new JButton("Login");
     private JLabel UserIDLabel = new JLabel("Username");
     private JLabel PasswordLabel = new JLabel("Password"); 
-    private static JTextField UserIDField = new JTextField(10);
-    private static JPasswordField PasswordField = new JPasswordField(10); 
-    private static JLabel errorLabel = new JLabel("Incorrect Username or Password");  
-    //Private static errorLabel = new JLabel(""); 
+    private JTextField UserIDField = new JTextField(10);
+    private JPasswordField PasswordField = new JPasswordField(10); 
+    private JLabel errorLabel = new JLabel("Incorrect Username or Password");  
 
-
-    //PasswordField = this.LoginView().getLoginPanel().JPasswordField;
     // Constructor
     public LoginView() {
         setTitle("Login");
@@ -29,19 +24,22 @@ public class LoginView extends JFrame {
     public JButton getLoginButton() {
         return loginButton;
     }
+
     public JPanel getLoginPanel() {
-    JPanel panel = new JPanel(); 
-    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(UserIDLabel, BorderLayout.CENTER);
-        panel.add(UserIDField, BorderLayout.CENTER);
-        panel.add(PasswordLabel, BorderLayout.CENTER);
-        panel.add(PasswordField, BorderLayout.CENTER);
-        panel.add(loginButton, BorderLayout.CENTER); 
-        panel.add(errorLabel, BorderLayout.CENTER);
+        JPanel panel = new JPanel(); 
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(UserIDLabel);
+        panel.add(UserIDField);
+        panel.add(PasswordLabel);
+        panel.add(PasswordField);
+        panel.add(loginButton);
+        panel.add(errorLabel);
+
         errorLabel.setVisible(false);
         return panel;
     }
-    public static String getUserIDField() {
+    public String getUserIDField() {
       //  String UV = UserIDField.getText();
         return UserIDField.getText();
     }
@@ -50,11 +48,11 @@ public class LoginView extends JFrame {
         return PasswordField.getPassword();
     }   
 
-    public static String DisplayErrorMessageLabel(){
+    public String displayErrorMessageLabel(){
         return "Username or password incorrect.";
     }
 
-    public static void DisplayErrorMessageLabelVisible(String Message){
+    public void displayErrorMessageLabelVisible(String Message){
         errorLabel.setForeground(Color.RED);
         errorLabel.setVisible(true);
     }

@@ -3,23 +3,17 @@ package src.view;
 import javax.swing.*;
 import java.awt.*;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class GymSelectionView extends JFrame{
     private JButton selectButton = new JButton("Select");
 
     public JList<String> gymList;
     public JScrollPane gymListPane;
 
-    // Create a new JPanel with a GridLayout
-    JPanel gridPanel = new JPanel(new GridLayout(2, 1));
-
     public GymSelectionView() {
         setTitle("Gym Selection");
         setSize(360, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());  // Use BorderLayout instead of BoxLayout
+        setLayout(new BorderLayout());
         setLocationRelativeTo(null);
     }
 
