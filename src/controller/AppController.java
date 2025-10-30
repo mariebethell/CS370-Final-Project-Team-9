@@ -34,38 +34,35 @@ public class AppController {
             char[] AP = {'p','a','s','s','w','o','r','d'};
             boolean loginFailed = true;
 
-            
- while(loginFailed == true) {
+            while(loginFailed == true) {
                 /*This section is to test the login function
-                 * - Right now if the wrong username or password is entered, error message prints to the terminal and not the page itself(need to fix)
-                 */
+                * - Right now if the wrong username or password is entered, error message prints to the terminal and not the page itself(need to fix)
+                */
                 String inputUsername = this.loginView.getUserIDField();
                 char[] inputPassword = this.loginView.getPassword(); 
-            try{
-                if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
-                if(Arrays.equals(inputPassword, AP)) {
-                    System.out.println("Login successful!");
-                    loginFailed = false;
+                try{
+                    if(Arrays.asList(AU1, AU2, AU3, AU4).contains(inputUsername)) {
+                        if(Arrays.equals(inputPassword, AP)) {
+                            System.out.println("Login successful!");
+                            loginFailed = false;
+                        }
+                        if(loginFailed == false) {
+                            this.loginView.setVisible(false);
+                            String[] gymNames = {"Gold's Gym", "24 Hour Fitness", "Planet Fitness", "LA Fitness", "Anytime Fitness", "Equinox", "Crunch Fitness", "YMCA", "Snap Fitness", "Life Time Fitness"};
+                            this.selectionView.addComponents(gymNames);
+                            this.selectionView.setVisible(true);
+                            return; 
+                        }
+                    }
+                    throw new LoginErrorException("Username or password incorrect.");
                 }
-                 if(loginFailed == false) {
-            this.loginView.setVisible(false);
-            this.selectionView.setVisible(true);
-            return; 
-        }
-
-        }
-        throw new LoginErrorException("Username or password incorrect.");
-        
-
-    }
-     catch (LoginErrorException ex) {
-            System.out.println(ex.getMessage());
-            this.loginView.DisplayErrorMessageLabelVisible(ex.getMessage());
-            return; 
-        }
-    }
-    
-    });
+                catch (LoginErrorException ex) {
+                        System.out.println(ex.getMessage());
+                        this.loginView.DisplayErrorMessageLabelVisible(ex.getMessage());
+                        return; 
+                }
+            }
+        });
 
 
 
