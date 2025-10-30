@@ -25,8 +25,6 @@ public class AppController {
         this.selectionView = selectionView;
         this.schedulerView = schedulerView;
 
-        // Login screen is displayed when start() method is called from main
-        // When the user 'logs in', we want to hide the login window and show the gym selection view
         this.loginView.getLoginButton().addActionListener(e -> {
             //get username and password from text fields
             String AU1 = "Marie"; 
@@ -73,6 +71,10 @@ public class AppController {
 
         // After the user has selected a gym, display the scheduler view
         this.selectionView.getSelectionButton().addActionListener(e -> {
+            System.out.println("Selected: " + this.selectionView.gymList.getSelectedValue());
+
+            this.selectionView.repaint();
+
             this.selectionView.setVisible(false);
             this.schedulerView.setVisible(true);
         });

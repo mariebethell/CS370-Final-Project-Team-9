@@ -2,7 +2,6 @@ package src;
 
 import javax.swing.SwingUtilities;
 import src.view.*;
-// import src.model.*;
 import src.controller.*;
 
 public class Main {
