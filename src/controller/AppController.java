@@ -4,6 +4,8 @@
 
 package src.controller;
 
+import javax.swing.JButton;
+
 import src.view.*;
 
 public class AppController {
@@ -24,10 +26,17 @@ public class AppController {
         this.loginView.getLoginButton().addActionListener(e -> {
             this.loginView.setVisible(false);
             this.selectionView.setVisible(true);
+
+            String[] gymNames = {"Gold's Gym", "24 Hour Fitness", "Planet Fitness", "LA Fitness", "Anytime Fitness", "Equinox", "Crunch Fitness", "YMCA", "Snap Fitness", "Life Time Fitness"};
+            this.selectionView.addComponents(gymNames);
         });
 
         // After the user has selected a gym, display the scheduler view
         this.selectionView.getSelectionButton().addActionListener(e -> {
+            System.out.println("Selected: " + this.selectionView.gymList.getSelectedValue());
+
+            this.selectionView.repaint();
+
             this.selectionView.setVisible(false);
             this.schedulerView.setVisible(true);
         });
