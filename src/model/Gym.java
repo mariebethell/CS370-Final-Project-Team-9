@@ -1,3 +1,4 @@
+package src.model;
 public class Gym {
     String chain;
     int number;
