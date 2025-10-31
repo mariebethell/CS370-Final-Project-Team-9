@@ -1,3 +1,4 @@
+package src.model;
 public class Team{
     int teamNum; //determined based on whether or not they create the game
     Account[] players; //array of accounts

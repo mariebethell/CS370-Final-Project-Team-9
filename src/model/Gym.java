@@ -1,3 +1,4 @@
+package src.model;
 public class Gym {
     String chain;
     int number;
@@ -12,6 +13,6 @@ public class Gym {
     }
 
     public String displayInfo(){
-        return "Gym Chain: " + chain + "\nGym Number: " + number + "\nHours: " + hours + "\nNumber of Courts: " + numCourts;
+        return "Gym Chain: " + chain + "\nGym Number: " + number + "Hours: " + hours + "\nNumber of Courts: " + numCourts;
     }
 }

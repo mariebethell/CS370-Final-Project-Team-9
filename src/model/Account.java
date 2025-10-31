@@ -1,3 +1,4 @@
+package src.model;
 //Account class to manage user information
 public class Account {
     String name;
