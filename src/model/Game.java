@@ -1,3 +1,4 @@
+package src.model;
 public class Game {
     Team team1;
     Team team2;

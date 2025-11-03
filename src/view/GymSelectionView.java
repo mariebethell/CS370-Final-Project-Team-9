@@ -6,17 +6,32 @@ import java.awt.*;
 public class GymSelectionView extends JFrame{
     private JButton selectButton = new JButton("Select");
 
+    public JList<String> gymList;
+    public JScrollPane gymListPane;
+
     public GymSelectionView() {
         setTitle("Gym Selection");
         setSize(360, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+        setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-
-        add(selectButton);
     }
 
     public JButton getSelectionButton() {
         return selectButton;
+    }
+
+    public void addComponents(String[] gyms) {
+        // Create the list and scroll pane
+        gymList = new JList<>(gyms);
+        gymListPane = new JScrollPane(gymList);
+
+        // Add list to the center so it takes most of the space
+        add(gymListPane, BorderLayout.CENTER);
+
+        // Add the button to the bottom
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(selectButton);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 }
