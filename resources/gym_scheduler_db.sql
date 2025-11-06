@@ -82,31 +82,9 @@ INSERT INTO gyms (chain_name, location_number, address, city, state, zip_code, h
 ('Snap Fitness', 1, '369 Hill St', 'Los Angeles', 'CA', '90009', '24 Hours', 2),
 ('Life Time Fitness', 1, '741 Lake Dr', 'Los Angeles', 'CA', '90010', '4:00 AM - 11:00 PM', 10);
 
--- Insert sample account data (with hashed passwords - these are examples only)
--- Note: In production, use proper password hashing like BCrypt
+-- Insert sample account data (using unhashed passwords for now)
 INSERT INTO accounts (name, email, password_hash, team_num) VALUES
 ('Marie', 'marie@example.com', 'password', NULL),
 ('Benjamin', 'benjamin@example.com', 'password', NULL),
 ('Sarah', 'sarah@example.com', 'password', NULL),
 ('Logan', 'logan@example.com', 'password', NULL);
-
--- Create a view for easy account lookup (without exposing password hash)
-CREATE VIEW account_info AS
-SELECT 
-    account_id,
-    name,
-    email,
-    team_num,
-    created_at
-FROM accounts;
-
--- Create a view for gym information
-CREATE VIEW gym_info AS
-SELECT 
-    gym_id,
-    chain_name,
-    location_number,
-    CONCAT(address, ', ', city, ', ', state, ' ', zip_code) AS full_address,
-    hours,
-    num_courts
-FROM gyms;
