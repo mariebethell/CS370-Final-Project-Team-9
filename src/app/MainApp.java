@@ -21,8 +21,9 @@ public class MainApp {
 
         loginController = new LoginController(loginView, this);
 
-        String[] gymNames = {"Gold's Gym", "24 Hour Fitness", "Planet Fitness", "LA Fitness", "Anytime Fitness", "Equinox", "Crunch Fitness", "YMCA", "Snap Fitness", "Life Time Fitness"};
-        gymSelectionController = new GymSelectionController(selectionView, this, gymNames);
+        // String[] gymNames = {"Gold's Gym", "24 Hour Fitness", "Planet Fitness", "LA Fitness", "Anytime Fitness", "Equinox", "Crunch Fitness", "YMCA", "Snap Fitness", "Life Time Fitness"};
+        
+        gymSelectionController = new GymSelectionController(selectionView, this);
         schedulerController = new SchedulerController();
 
         showLoginView();
