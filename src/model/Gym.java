@@ -12,6 +12,10 @@ public class Gym {
         this.numCourts = numCourts;
     }
 
+    public String getChain() {
+        return chain;
+    }
+
     public String displayInfo(){
         return "Gym Chain: " + chain + "\nGym Number: " + number + "Hours: " + hours + "\nNumber of Courts: " + numCourts;
     }

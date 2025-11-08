@@ -3,6 +3,9 @@ package src.view;
 import javax.swing.*;
 import java.awt.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class GymSelectionView extends JFrame{
     private JButton selectButton = new JButton("Select");
 
@@ -21,7 +24,7 @@ public class GymSelectionView extends JFrame{
         return selectButton;
     }
 
-    public void addComponents(String[] gyms) {
+    public void addComponents(DefaultListModel<String> gyms) {
         // Create the list and scroll pane
         gymList = new JList<>(gyms);
         gymListPane = new JScrollPane(gymList);

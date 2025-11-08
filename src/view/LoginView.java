@@ -5,11 +5,11 @@ import java.awt.*;
 
 public class LoginView extends JFrame {
     private JButton loginButton = new JButton("Login");
-    private JLabel UserIDLabel = new JLabel("Username");
+    private JLabel UserIDLabel = new JLabel("Email");
     private JLabel PasswordLabel = new JLabel("Password"); 
     private JTextField UserIDField = new JTextField(10);
     private JPasswordField PasswordField = new JPasswordField(10); 
-    private JLabel errorLabel = new JLabel("Incorrect Username or Password");  
+    private JLabel errorLabel = new JLabel("Incorrect Email or Password");  
 
     // Constructor
     public LoginView() {
@@ -40,7 +40,6 @@ public class LoginView extends JFrame {
         return panel;
     }
     public String getUserIDField() {
-      //  String UV = UserIDField.getText();
         return UserIDField.getText();
     }
 
@@ -48,13 +47,8 @@ public class LoginView extends JFrame {
         return PasswordField.getPassword();
     }   
 
-    public String displayErrorMessageLabel(){
-        return "Username or password incorrect.";
-    }
-
-    public void displayErrorMessageLabelVisible(String Message){
+    public void displayErrorMessageLabelVisible(){
         errorLabel.setForeground(Color.RED);
         errorLabel.setVisible(true);
     }
-
 }
