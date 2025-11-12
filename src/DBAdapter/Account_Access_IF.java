@@ -3,7 +3,7 @@ package src.DBAdapter;
 import src.model.Account;
 import java.util.List;
 
-public interface Account_Access_IF {
+public interface Account_Access_IF extends DB_Connection_IF {
     // Create
     public void addAccount(Account account);
 
