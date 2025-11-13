@@ -21,7 +21,7 @@ public class MainApp {
 
         loginController = new LoginController(loginView, this);
         gymSelectionController = new GymSelectionController(selectionView, this);
-        schedulerController = new SchedulerController();
+        schedulerController = new SchedulerController(schedulerView, this);
 
         showLoginView();
     }
