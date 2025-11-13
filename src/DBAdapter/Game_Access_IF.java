@@ -5,7 +5,7 @@ import java.util.List;
 
 import java.time.LocalDate;
 
-public interface Game_Access_IF extends DB_Connection_IF {
+public interface Game_Access_IF {
     public void createGame(Game game);
     public void deleteGame(int gameId);
     public boolean addTeamToGame(int gameId, int teamId);

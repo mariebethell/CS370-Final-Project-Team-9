@@ -1,7 +1,5 @@
 package src.DBAdapter;
 
-import src.DBAdapter.DB_Connection_IF;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -13,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DB_Connection implements DB_Connection_IF {
+public class DB_Connection {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/gym_scheduler"; // Use local host for now
     private static final String DB_USER = "mariebethell";       // Change to your MySQL username
     private static final String DB_PASSWORD = "database4CS370"; // Change to your MySQL password
