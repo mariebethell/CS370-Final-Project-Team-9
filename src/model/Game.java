@@ -1,7 +1,12 @@
 package src.model;
 public class Game {
-    Team team1;
-    Team team2;
+    Team team1 =  null;
+    Team team2 = null;
+
+    int team1Id;
+    int team2Id;
+    int gymId;
+
     String time;
     boolean full = false;
 
@@ -9,6 +14,28 @@ public class Game {
         this.team1 = team1;
         this.team2 = team2;
         this.time = time;
+    }
+
+    public Game(int team1Id, int team2Id, String time) {
+        this.team1Id = team1Id;
+        this.team2Id = team2Id;
+        this.time = time;
+    }
+
+    public int getGymId() {
+        return gymId;
+    }
+
+    public int getTeam1Id() {
+        return team1Id;
+    }
+
+    public int getTeam2Id() {
+        return team2Id;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public void addTeam(Team team, int teamNum) {
