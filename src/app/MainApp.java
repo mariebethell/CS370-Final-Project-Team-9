@@ -23,7 +23,8 @@ public class MainApp {
         gymSelectionController = new GymSelectionController(selectionView, this);
         schedulerController = new SchedulerController(schedulerView, this);
 
-        showLoginView();
+        // showLoginView();
+        showSchedulerView();
     }
 
     public void showLoginView() {

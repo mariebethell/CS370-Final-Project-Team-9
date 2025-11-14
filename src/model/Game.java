@@ -34,4 +34,11 @@ public class Game {
         return team1.teamFull() && team2.teamFull();
     }
 
+    public Team getTeam1() {
+        return team1;
+    }
+
+    public Team getTeam2() {
+        return team2;
+    }
 }
