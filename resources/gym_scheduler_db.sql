@@ -35,21 +35,12 @@ CREATE TABLE gyms (
 CREATE TABLE teams (
     team_id INT PRIMARY KEY AUTO_INCREMENT,
     team_num INT NOT NULL,
+    player1_id INT,
+    player2_id INT,
+    player3_id INT,
+    player4_id INT,
+    player5_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_team_num (team_num)
-);
-
--- Junction table for team members (many-to-many relationship)
-CREATE TABLE team_members (
-    team_member_id INT PRIMARY KEY AUTO_INCREMENT,
-    team_id INT NOT NULL,
-    account_id INT NOT NULL,
-    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (team_id) REFERENCES teams(team_id) ON DELETE CASCADE,
-    FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE,
-    UNIQUE KEY unique_team_member (team_id, account_id),
-    INDEX idx_team (team_id),
-    INDEX idx_account (account_id)
 );
 
 -- Table for games

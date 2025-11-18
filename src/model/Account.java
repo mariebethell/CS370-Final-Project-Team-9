@@ -5,8 +5,16 @@ public class Account {
     String email;
     String password;
     int teamNum = 0;
+    int accountId;
 
     public Account(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Account(int accountId, String name, String email, String password) {
+        this.accountId = accountId;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -34,6 +42,10 @@ public class Account {
 
     public int getTeamNum() {
         return teamNum;
+    }
+
+    public int getAccountId() {
+        return accountId;
     }
 
     // Insecure, but Account_DAO needs to be able to get password from Account object when inserting into table

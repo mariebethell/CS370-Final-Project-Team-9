@@ -7,84 +7,101 @@ import src.model.Game;
 import src.model.Team;
 
 public class SingleGameView extends JPanel {
+
+    private static final Dimension GAME_SIZE = new Dimension(300, 120);
+    private static final Dimension TEAM_BUTTON_SIZE = new Dimension(80, 80);
+
     private JButton team1Button;
     private JButton team2Button;
-    private JPanel game_info_panel;
-    private JPanel flow_panel;
-    private JLabel gameTime;
-    private JLabel gameId;
+    private JLabel gameTimeLabel;
+    private JLabel gameIdLabel;
+
     private Team team1;
     private Team team2;
 
-    // Constructor
+    public Game game;
+
     public SingleGameView(Game game) {
-        // Get teams
-        team1 = game.getTeam1();
-        team2 = game.getTeam2();
+        this.game = game;
 
-        flow_panel = new JPanel();
-        flow_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
+        this.team1 = game.getTeam1();
+        this.team2 = game.getTeam2();
 
-        Dimension fixedSize = new Dimension(300,120);
-        flow_panel.setPreferredSize(fixedSize); // to fit 4 games per screen
-        flow_panel.setMinimumSize(fixedSize);
-        flow_panel.setMaximumSize(fixedSize);
-
-        flow_panel.setBackground(Color.LIGHT_GRAY);
-        
         setLayout(new BorderLayout());
-        setPreferredSize(fixedSize);
-        setMinimumSize(fixedSize);
-        setMaximumSize(fixedSize);
+        setPreferredSize(GAME_SIZE);
+        setMinimumSize(GAME_SIZE);
+        setMaximumSize(GAME_SIZE);
 
-        game_info_panel = new JPanel();
-        game_info_panel.setLayout(new BoxLayout(game_info_panel, BoxLayout.Y_AXIS));
-        game_info_panel.setPreferredSize(new Dimension(80, 80));
+        // Main container panel
+        JPanel contentPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 20));
+        contentPanel.setPreferredSize(GAME_SIZE);
+        contentPanel.setOpaque(true);
+        contentPanel.setBackground(Color.LIGHT_GRAY);
 
-        gameId = new JLabel("Game 1");
-        gameId.setAlignmentX(Component.CENTER_ALIGNMENT);
-        gameId.setVerticalAlignment(JLabel.CENTER);
-        gameTime = new JLabel("3:30");
-        gameTime.setAlignmentX(Component.CENTER_ALIGNMENT);
-        gameTime.setVerticalAlignment(JLabel.CENTER);
+        // ----- Game Info Panel -----
+        JPanel gameInfoPanel = new JPanel();
+        gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.Y_AXIS));
+        gameInfoPanel.setOpaque(false);  
+        gameInfoPanel.setPreferredSize(new Dimension(80, 80));
 
-        game_info_panel.add(Box.createRigidArea(new Dimension(20, 20)));
-        game_info_panel.add(gameId);
-        game_info_panel.add(gameTime);
+        gameIdLabel = new JLabel("Game " + game.gameId);
+        gameIdLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        flow_panel.add(game_info_panel);
+        gameTimeLabel = new JLabel(formatTime(game));
+        gameTimeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        team1Button = new JButton("Team 1"){
-            { 
-                setPreferredSize(new Dimension(80, 80)); 
-            }
-        };
-        
-        flow_panel.add(team1Button);
-        team2Button = new JButton("Team 2")
-        {
-            {
-                setPreferredSize(new Dimension(80, 80));
-            }
-        };
-        flow_panel.add(team2Button);
+        gameInfoPanel.add(Box.createVerticalStrut(20));
+        gameInfoPanel.add(gameIdLabel);
+        gameInfoPanel.add(gameTimeLabel);
 
-        add(flow_panel, BorderLayout.CENTER);
+        contentPanel.add(gameInfoPanel);
+
+        // ----- Team Buttons -----
+        team1Button = createTeamButton(team1, "Team 1");
+        team2Button = createTeamButton(team2, "Team 2");
+
+        contentPanel.add(team1Button);
+        contentPanel.add(team2Button);
+
+        // Add to main view
+        add(contentPanel, BorderLayout.CENTER);
     }
 
-    public JButton getTeam1Button() {
-        return team1Button;
+    // ---------------------------------------------------------
+    // Helpers
+    // ---------------------------------------------------------
+
+    private JButton createTeamButton(Team team, String defaultText) {
+        JButton button = new JButton(defaultText);
+        button.setPreferredSize(TEAM_BUTTON_SIZE);
+        return button;
     }
 
-    public JButton getTeam2Button() {
-        return team2Button;
+    private String formatTime(Game game) {
+        if (game.get_time() == null) return "No time";
+        return game.get_time().toString();
     }
 
-    public Team getTeam1() {
-        return team1;
+    // ---------------------------------------------------------
+    // Getters
+    // ---------------------------------------------------------
+
+    public JButton getTeam1Button() { return team1Button; }
+    public JButton getTeam2Button() { return team2Button; }
+
+    public Team getTeam1() { return team1; }
+    public Team getTeam2() { return team2; }
+
+    public int getGameId() {
+        return game.gameId;
     }
 
-    public Team getTeam2() {
-        return team2;
+    // Setters
+    public void setTeam1(Team team) {
+        team1 = team;
+    }
+
+    public void setTeam2(Team team) {
+        team2 = team;
     }
 }

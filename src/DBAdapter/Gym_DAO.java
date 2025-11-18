@@ -6,14 +6,8 @@ import src.DBAdapter.Gym_Access_IF;
 import java.util.List;
 import java.util.ArrayList;
 
-
 // Database imports
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
     public List<Gym> getAllGyms() {

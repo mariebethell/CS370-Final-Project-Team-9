@@ -8,6 +8,6 @@ import java.time.LocalDate;
 public interface Game_Access_IF {
     public void createGame(Game game);
     public void deleteGame(int gameId);
-    public boolean addTeamToGame(int gameId, int teamId);
+    public boolean addTeamToGame(int gameId, int teamId, int teamNum);
     public List<Game> getAllGamesFromGym(int gymId);
 }

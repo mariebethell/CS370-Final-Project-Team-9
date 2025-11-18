@@ -1,25 +1,40 @@
 package src.model;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 public class Game {
-    Team team1 =  null;
-    Team team2 = null;
+    private Team team1 =  null;
+    private Team team2 = null;
 
-    int team1Id;
-    int team2Id;
-    int gymId;
+    public int team1Id;
+    public int team2Id;
+    public int gymId;
+    public int gameId;
 
-    String time;
-    boolean full = false;
+    private LocalDateTime date_time;
+    private boolean full = false;
 
-    public Game(Team team1, Team team2, String time) {
+    public Game(int gymId, Team team1, Team team2, LocalDateTime time) {
+        this.gymId = gymId;
         this.team1 = team1;
         this.team2 = team2;
-        this.time = time;
+        this.date_time = time;
     }
 
-    public Game(int team1Id, int team2Id, String time) {
+    public Game(int gameId, int gymId, Team team1, Team team2, LocalDateTime time) {
+        this.gameId = gameId;
+        this.gymId = gymId;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.date_time = time;
+    }
+
+    public Game(int gymId, int team1Id, int team2Id, LocalDateTime time) {
+        this.gymId = gymId;
         this.team1Id = team1Id;
         this.team2Id = team2Id;
-        this.time = time;
+        this.date_time = time;
     }
 
     public int getGymId() {
@@ -34,8 +49,12 @@ public class Game {
         return team2Id;
     }
 
-    public String getTime() {
-        return time;
+    public LocalTime get_time() {
+        return date_time.toLocalTime();
+    }
+
+    public LocalDateTime get_date_time() {
+        return date_time;
     }
 
     public void addTeam(Team team, int teamNum) {

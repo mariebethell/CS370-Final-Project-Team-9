@@ -43,6 +43,7 @@ public class Account_DAO extends DB_Connection implements Account_Access_IF {
 
             if (rs.next()) {
                 return new Account(
+                    rs.getInt("account_id"),
                     rs.getString("name"),
                     rs.getString("email"),
                     ""
@@ -62,6 +63,7 @@ public class Account_DAO extends DB_Connection implements Account_Access_IF {
             
             if (rs.next()) {
                 return new Account(
+                    rs.getInt("account_id"),
                     rs.getString("name"),
                     rs.getString("email"),
                     ""

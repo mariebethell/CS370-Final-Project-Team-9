@@ -4,12 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 // Database imports
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DB_Connection {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/gym_scheduler"; // Use local host for now
