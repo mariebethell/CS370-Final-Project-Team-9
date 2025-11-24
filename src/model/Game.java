@@ -37,8 +37,20 @@ public class Game {
         this.date_time = time;
     }
 
+    public Game(int gameId, int gymId, int team1Id, int team2Id, LocalDateTime time) {
+        this.gameId = gameId;
+        this.gymId = gymId;
+        this.team1Id = team1Id;
+        this.team2Id = team2Id;
+        this.date_time = time;
+    }
+
     public int getGymId() {
         return gymId;
+    }
+
+    public int getGameId() {
+        return gameId;
     }
 
     public int getTeam1Id() {
@@ -64,8 +76,7 @@ public class Game {
         else{
             this.team2 = team;
         }
-    }//this might not be the best way to do this or the right spot
-    //team that creats game is team1 and can make changes
+    }
 
     public void removeTeam(int teamNum) {
         if(teamNum == 1) {

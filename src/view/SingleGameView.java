@@ -16,16 +16,10 @@ public class SingleGameView extends JPanel {
     private JLabel gameTimeLabel;
     private JLabel gameIdLabel;
 
-    private Team team1;
-    private Team team2;
-
     public Game game;
 
     public SingleGameView(Game game) {
         this.game = game;
-
-        this.team1 = game.getTeam1();
-        this.team2 = game.getTeam2();
 
         setLayout(new BorderLayout());
         setPreferredSize(GAME_SIZE);
@@ -44,7 +38,7 @@ public class SingleGameView extends JPanel {
         gameInfoPanel.setOpaque(false);  
         gameInfoPanel.setPreferredSize(new Dimension(80, 80));
 
-        gameIdLabel = new JLabel("Game " + game.gameId);
+        gameIdLabel = new JLabel("Game");
         gameIdLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         gameTimeLabel = new JLabel(formatTime(game));
@@ -57,8 +51,8 @@ public class SingleGameView extends JPanel {
         contentPanel.add(gameInfoPanel);
 
         // ----- Team Buttons -----
-        team1Button = createTeamButton(team1, "Team 1");
-        team2Button = createTeamButton(team2, "Team 2");
+        team1Button = createTeamButton(game.getTeam1(), "Team 1");
+        team2Button = createTeamButton(game.getTeam2(), "Team 2");
 
         contentPanel.add(team1Button);
         contentPanel.add(team2Button);
@@ -89,8 +83,8 @@ public class SingleGameView extends JPanel {
     public JButton getTeam1Button() { return team1Button; }
     public JButton getTeam2Button() { return team2Button; }
 
-    public Team getTeam1() { return team1; }
-    public Team getTeam2() { return team2; }
+    public int getTeam1Id() { return game.getTeam1Id(); }
+    public int getTeam2Id() { return game.getTeam2Id(); }
 
     public int getGameId() {
         return game.gameId;
@@ -98,10 +92,10 @@ public class SingleGameView extends JPanel {
 
     // Setters
     public void setTeam1(Team team) {
-        team1 = team;
+        game.addTeam(team, 1);
     }
 
     public void setTeam2(Team team) {
-        team2 = team;
+        game.addTeam(team, 2);
     }
 }

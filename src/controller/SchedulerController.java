@@ -14,6 +14,8 @@ import src.DBAdapter.Team_DAO;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import java.awt.event.*;;
+
 public class SchedulerController {
 
     private final SchedulerView view;
@@ -36,10 +38,8 @@ public class SchedulerController {
         initController();
     }
 
-    // -------------------------------------------------------------------------
-    // INITIALIZATION
-    // -------------------------------------------------------------------------
     private void initController() {
+        // game_dao.deleteAllGamesFromGym(1);
 
         view.getCreateGameButton().addActionListener(e -> {
             TimeSelectionDialog dialog = new TimeSelectionDialog(view);
@@ -57,38 +57,58 @@ public class SchedulerController {
         wireGameButtons();
     }
 
-    // -------------------------------------------------------------------------
-    // REFRESH VIEW + REWIRE BUTTONS
-    // -------------------------------------------------------------------------
     private void refreshSchedulerView() {
         List<Game> games = game_dao.getAllGamesFromGym(1);
+
+        for (Game game : games) {
+            System.out.println("Game " + game.getGameId() + "\nTeam 1 ID: " + game.getTeam1Id() + "\nTeam 2 ID: " + game.getTeam2Id());
+        }
+
         view.refreshView(games);
         wireGameButtons();
     }
 
-    // -------------------------------------------------------------------------
-    // WIRE TEAM BUTTONS
-    // -------------------------------------------------------------------------
     private void wireGameButtons() {
         for (SingleGameView gv : view.getListOfGameViews()) {
+            // Remove old listeners
+        
+            for (ActionListener al : gv.getTeam1Button().getActionListeners())
+                gv.getTeam1Button().removeActionListener(al);
+
+            for (ActionListener al : gv.getTeam2Button().getActionListeners())
+                gv.getTeam2Button().removeActionListener(al);
 
             gv.getTeam1Button().addActionListener(e -> {
-                Team team = gv.getTeam1();
-                if (team == null) team = new Team(1);
-                openTeamEditor(gv, team, 1);
+                int team1Id = gv.getTeam1Id();
+
+                Team team1 = null;
+                if (team1Id == 0) {
+                    System.out.println("Team was null\n");
+                    team1 = new Team(1);
+                }
+                else {
+                    team1 = team_dao.getTeamById(team1Id);
+                    System.out.println(team1.getTeamId());
+                }
+                openTeamEditor(gv, team1, 1);
             });
 
             gv.getTeam2Button().addActionListener(e -> {
-                Team team = gv.getTeam2();
-                if (team == null) team = new Team(2);
-                openTeamEditor(gv, team, 2);
+                int team2Id = gv.getTeam2Id();
+
+                Team team2 = null;
+                if (team2Id == 0) {
+                    team2 = new Team(2);
+                } 
+                else {
+                    team2 = team_dao.getTeamById(team2Id);
+                    System.out.println(team2.getTeamId());
+                }
+                openTeamEditor(gv, team2, 2);
             });
         }
     }
 
-    // -------------------------------------------------------------------------
-    // OPEN TEAM EDITOR (TeamView)
-    // -------------------------------------------------------------------------
     private void openTeamEditor(SingleGameView gameView, Team team, int teamNum) {
 
         TeamView editor = new TeamView(view, team);
@@ -112,12 +132,24 @@ public class SchedulerController {
             if (teamNum == 1) {
                 gameView.setTeam1(updatedTeam);
                 game_dao.addTeamToGame(gameView.getGameId(), updatedTeam.teamId, updatedTeam.teamNum);
+                System.out.println("gameid: " + gameView.getGameId());
+                System.out.println("teamid: " + updatedTeam.teamId);
 
             } else {
                 gameView.setTeam2(updatedTeam);
                 game_dao.addTeamToGame(gameView.getGameId(), updatedTeam.teamId, updatedTeam.teamNum);
+                System.out.println("gameid: " + gameView.getGameId());
+                System.out.println("teamid: " + updatedTeam.teamId);
             }
 
+            /*
+            List<Game> games = game_dao.getAllGamesFromGym(1);
+            for (Game game : games) {
+                System.out.println("Team1 ID: " + game.getTeam1().getTeamNum());
+                System.out.println("Team2 ID: " + game.getTeam2().getTeamNum());
+            }
+            */
+            
             // Rebuild scheduler UI
             refreshSchedulerView();
         }

@@ -8,6 +8,8 @@ import java.util.List;
 import src.model.Team;
 import src.model.Account;
 
+import src.DBAdapter.Account_DAO;
+
 public class TeamView extends JDialog {
 
     private JTextField[] playerFields = new JTextField[5];
@@ -16,10 +18,12 @@ public class TeamView extends JDialog {
 
     private boolean confirmed = false;
     private Team team;
+    private Account_DAO account_dao;
 
     public TeamView(JFrame parent, Team team) {
         super(parent, "Edit Team", true);
         this.team = team;
+        account_dao = new Account_DAO();
 
         setLayout(new BorderLayout());
         add(buildFormPanel(team), BorderLayout.CENTER);
@@ -50,7 +54,7 @@ public class TeamView extends JDialog {
 
             // Prefill existing player name if present
             String name = (i < players.size() && players.get(i) != null)
-                            ? players.get(i).getName()
+                            ? players.get(i).getEmail()
                             : "";
 
             playerFields[i] = new JTextField(name, 15);
@@ -104,19 +108,24 @@ public class TeamView extends JDialog {
     public Team getTeamResult() {
         if (!confirmed) return null;
 
-        Team newTeam = new Team(team.getTeamNum()); // preserve team number
+        Team newTeam = new Team(team.getTeamId(), team.getTeamNum()); // preserve team number
         List<Account> players = new ArrayList<>();
 
         for (JTextField field : playerFields) {
             String text = field.getText().trim();
+
             if (!text.isBlank()) {
-                Account a = new Account(text, null, null);  // use your real Account constructor
-                players.add(a);
+                Account a = account_dao.getAccountByEmail(text);
+                if (a != null) {
+                    players.add(a);
+                }
+                else {
+                    System.out.println(text + " was not found in the Account database");
+                }
             }
         }
 
         newTeam.setTeamMembers(players);
-
         return newTeam;
     }
 }

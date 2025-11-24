@@ -5,8 +5,7 @@ import java.util.List;
 
 public class Team {
     public int teamNum;
-    public int teamId;
-    private String teamName;
+    public int teamId = 0;
     private List<Account> players;
     private final int MAXCOUNT = 5;
 
@@ -48,12 +47,9 @@ public class Team {
         return teamNum;
     }
 
-    public String getTeamName() {
-        return teamName;
+    public int getTeamId() {
+        return teamId;
     }
 
-    public void setTeamName(String name) {
-        this.teamName = name;
-    }
 }
 

@@ -17,6 +17,13 @@ public class Game_DAO extends DB_Connection implements Game_Access_IF {
             // stmt.setInt(2, game.getTeam1Id());
             stmt.setTimestamp(2, Timestamp.valueOf(game.get_date_time()));
             stmt.executeUpdate();
+
+            // Assign generated game ID back to the Game object
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                game.gameId = rs.getInt(1);
+                System.out.println(game.gameId);
+            }
         } catch (SQLException e) {
             System.out.println("Error creating game: " + e.getMessage());
         }
@@ -84,8 +91,9 @@ public class Game_DAO extends DB_Connection implements Game_Access_IF {
                 int team1_id = rs.getInt("team1_id");
                 int team2_id = rs.getInt("team2_id");
                 LocalDateTime datetime = rs.getTimestamp("game_time").toLocalDateTime();
+                int game_id = rs.getInt("game_id");
 
-                Game retrievedGame = new Game(gymId, team1_id, team2_id, datetime);
+                Game retrievedGame = new Game(game_id, gymId, team1_id, team2_id, datetime);
                 games.add(retrievedGame);
             }
 

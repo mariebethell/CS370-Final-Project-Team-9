@@ -36,7 +36,7 @@ public class Account_DAO extends DB_Connection implements Account_Access_IF {
 
     // Read methods
     public Account getAccountById(int id) {
-        String query = "SELECT * FROM accounts WHERE id = ?";
+        String query = "SELECT * FROM accounts WHERE account_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -50,7 +50,7 @@ public class Account_DAO extends DB_Connection implements Account_Access_IF {
                 );
             }
         } catch (SQLException e) {
-            System.err.println("Error feching account: " + e.getMessage());
+            System.err.println("Error fetching account: " + e.getMessage());
         }
         return null;
     }
