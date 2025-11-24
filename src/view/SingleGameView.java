@@ -51,8 +51,8 @@ public class SingleGameView extends JPanel {
         contentPanel.add(gameInfoPanel);
 
         // ----- Team Buttons -----
-        team1Button = createTeamButton(game.getTeam1(), "Team 1");
-        team2Button = createTeamButton(game.getTeam2(), "Team 2");
+        team1Button = createTeamButton("Team 1");
+        team2Button = createTeamButton("Team 2");
 
         contentPanel.add(team1Button);
         contentPanel.add(team2Button);
@@ -65,7 +65,7 @@ public class SingleGameView extends JPanel {
     // Helpers
     // ---------------------------------------------------------
 
-    private JButton createTeamButton(Team team, String defaultText) {
+    private JButton createTeamButton(String defaultText) {
         JButton button = new JButton(defaultText);
         button.setPreferredSize(TEAM_BUTTON_SIZE);
         return button;
@@ -80,22 +80,23 @@ public class SingleGameView extends JPanel {
     // Getters
     // ---------------------------------------------------------
 
-    public JButton getTeam1Button() { return team1Button; }
-    public JButton getTeam2Button() { return team2Button; }
+    public JButton getTeam1Button() { 
+        return team1Button; 
+    }
 
-    public int getTeam1Id() { return game.getTeam1Id(); }
-    public int getTeam2Id() { return game.getTeam2Id(); }
+    public JButton getTeam2Button() {
+        return team2Button; 
+    }
+
+    public int getTeam1Id() { 
+        return game.getTeam1Id(); 
+    }
+
+    public int getTeam2Id() { 
+        return game.getTeam2Id();
+    }
 
     public int getGameId() {
         return game.gameId;
-    }
-
-    // Setters
-    public void setTeam1(Team team) {
-        game.addTeam(team, 1);
-    }
-
-    public void setTeam2(Team team) {
-        game.addTeam(team, 2);
     }
 }

@@ -1,10 +1,7 @@
 package src.controller;
 
 import src.app.MainApp;
-import src.view.SchedulerView;
-import src.view.SingleGameView;
-import src.view.TeamView;
-import src.view.TimeSelectionDialog;
+import src.view.*;
 
 import src.model.Game;
 import src.model.Team;
@@ -14,7 +11,7 @@ import src.DBAdapter.Team_DAO;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import java.awt.event.*;;
+import java.awt.event.*;
 
 public class SchedulerController {
 
@@ -39,8 +36,6 @@ public class SchedulerController {
     }
 
     private void initController() {
-        // game_dao.deleteAllGamesFromGym(1);
-
         view.getCreateGameButton().addActionListener(e -> {
             TimeSelectionDialog dialog = new TimeSelectionDialog(view);
             dialog.setVisible(true);
@@ -60,10 +55,6 @@ public class SchedulerController {
     private void refreshSchedulerView() {
         List<Game> games = game_dao.getAllGamesFromGym(1);
 
-        for (Game game : games) {
-            System.out.println("Game " + game.getGameId() + "\nTeam 1 ID: " + game.getTeam1Id() + "\nTeam 2 ID: " + game.getTeam2Id());
-        }
-
         view.refreshView(games);
         wireGameButtons();
     }
@@ -78,17 +69,17 @@ public class SchedulerController {
             for (ActionListener al : gv.getTeam2Button().getActionListeners())
                 gv.getTeam2Button().removeActionListener(al);
 
+            // Add listeners back to buttons
             gv.getTeam1Button().addActionListener(e -> {
                 int team1Id = gv.getTeam1Id();
 
                 Team team1 = null;
                 if (team1Id == 0) {
-                    System.out.println("Team was null\n");
+                    System.out.println("Creating new team\n");
                     team1 = new Team(1);
                 }
                 else {
                     team1 = team_dao.getTeamById(team1Id);
-                    System.out.println(team1.getTeamId());
                 }
                 openTeamEditor(gv, team1, 1);
             });
@@ -98,11 +89,11 @@ public class SchedulerController {
 
                 Team team2 = null;
                 if (team2Id == 0) {
+                    System.out.println("Creating new team\n");
                     team2 = new Team(2);
                 } 
                 else {
                     team2 = team_dao.getTeamById(team2Id);
-                    System.out.println(team2.getTeamId());
                 }
                 openTeamEditor(gv, team2, 2);
             });
@@ -130,25 +121,11 @@ public class SchedulerController {
 
             // Update game object
             if (teamNum == 1) {
-                gameView.setTeam1(updatedTeam);
                 game_dao.addTeamToGame(gameView.getGameId(), updatedTeam.teamId, updatedTeam.teamNum);
-                System.out.println("gameid: " + gameView.getGameId());
-                System.out.println("teamid: " + updatedTeam.teamId);
 
             } else {
-                gameView.setTeam2(updatedTeam);
                 game_dao.addTeamToGame(gameView.getGameId(), updatedTeam.teamId, updatedTeam.teamNum);
-                System.out.println("gameid: " + gameView.getGameId());
-                System.out.println("teamid: " + updatedTeam.teamId);
             }
-
-            /*
-            List<Game> games = game_dao.getAllGamesFromGym(1);
-            for (Game game : games) {
-                System.out.println("Team1 ID: " + game.getTeam1().getTeamNum());
-                System.out.println("Team2 ID: " + game.getTeam2().getTeamNum());
-            }
-            */
             
             // Rebuild scheduler UI
             refreshSchedulerView();

@@ -42,15 +42,12 @@ public class SchedulerView extends JFrame {
         game_views = new ArrayList<>();
 
         for (Game game : games) {
-            // System.out.println("Game " + game.getGameId() + "\nTeam 1 ID: " + game.getTeam1Id() + "\nTeam 2 ID: " + game.getTeam2Id());
-
             SingleGameView game_view = new SingleGameView(game);
             gamePanel.add(game_view);
             gamePanel.add(Box.createRigidArea(new Dimension(5, 5)));
             game_views.add(game_view);
         }
 
-        System.out.println("Checking game_views");
         for (SingleGameView game_view : game_views) {
             System.out.println("Game " + game_view.getGameId() + "\nTeam 1 ID: " + game_view.getTeam1Id() + "\nTeam 2 ID: " + game_view.getTeam2Id());
         }

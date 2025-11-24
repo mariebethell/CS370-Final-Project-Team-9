@@ -26,7 +26,7 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
             for (int i = 0; i < MAX_PLAYERS; i++) {
                 if (i < players.size()) {
                     stmt.setInt(i + 2, players.get(i).getAccountId());
-                    System.out.println("added " + players.get(i).getAccountId() + " to the database");
+                    System.out.println("added " + players.get(i).getEmail() + " to the database");
                 } else {
                     stmt.setNull(i + 2, Types.INTEGER);
                 }
@@ -38,7 +38,6 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 team.teamId = rs.getInt(1);
-                System.out.println(team.teamId);
             }
             
 
@@ -95,6 +94,7 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
 
             if (rs.next()) {
                 int teamNum = rs.getInt("team_num");
+
                 Team team = new Team(teamId, teamNum);
                 List<Account> players = new ArrayList<>();
 
@@ -127,7 +127,8 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
 
             while (rs.next()) {
                 int teamId = rs.getInt("team_id");
-                Team team = new Team(teamId);
+                int teamNum = rs.getInt("team_num");
+                Team team = new Team(teamId, teamNum);
                 List<Account> players = new ArrayList<>();
 
                 for (int i = 1; i <= MAX_PLAYERS; i++) {

@@ -14,7 +14,6 @@ public class Game_DAO extends DB_Connection implements Game_Access_IF {
         String query = "INSERT INTO games (gym_id, game_time) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, game.getGymId());
-            // stmt.setInt(2, game.getTeam1Id());
             stmt.setTimestamp(2, Timestamp.valueOf(game.get_date_time()));
             stmt.executeUpdate();
 
@@ -22,7 +21,6 @@ public class Game_DAO extends DB_Connection implements Game_Access_IF {
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 game.gameId = rs.getInt(1);
-                System.out.println(game.gameId);
             }
         } catch (SQLException e) {
             System.out.println("Error creating game: " + e.getMessage());

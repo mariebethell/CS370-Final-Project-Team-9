@@ -15,6 +15,7 @@ public class Game {
     private LocalDateTime date_time;
     private boolean full = false;
 
+    // Constructors
     public Game(int gymId, Team team1, Team team2, LocalDateTime time) {
         this.gymId = gymId;
         this.team1 = team1;
@@ -69,15 +70,6 @@ public class Game {
         return date_time;
     }
 
-    public void addTeam(Team team, int teamNum) {
-        if(teamNum == 1) {
-            this.team1 = team;
-        }
-        else{
-            this.team2 = team;
-        }
-    }
-
     public void removeTeam(int teamNum) {
         if(teamNum == 1) {
             this.team1 = null;
@@ -89,13 +81,5 @@ public class Game {
 
     public boolean gameFull() {
         return team1.teamFull() && team2.teamFull();
-    }
-
-    public Team getTeam1() {
-        return team1;
-    }
-
-    public Team getTeam2() {
-        return team2;
     }
 }

@@ -15,6 +15,7 @@ public class Team {
     }
 
     public Team(int teamId, int teamNum) {
+        this.teamId = teamId;
         this.teamNum = teamNum;
         this.players = new ArrayList<>();
     }
