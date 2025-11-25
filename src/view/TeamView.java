@@ -58,6 +58,11 @@ public class TeamView extends JDialog {
                             : "";
 
             playerFields[i] = new JTextField(name, 15);
+            
+            // If a name already exists in the databse, make it uneditable
+            if (name != "") {
+                playerFields[i].setEnabled(false);
+            }
 
             c.gridx = 1;
             panel.add(playerFields[i], c);
