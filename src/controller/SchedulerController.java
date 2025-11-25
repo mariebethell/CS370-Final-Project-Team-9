@@ -75,7 +75,6 @@ public class SchedulerController {
 
                 Team team1 = null;
                 if (team1Id == 0) {
-                    System.out.println("Creating new team\n");
                     team1 = new Team(1);
                 }
                 else {
@@ -89,7 +88,6 @@ public class SchedulerController {
 
                 Team team2 = null;
                 if (team2Id == 0) {
-                    System.out.println("Creating new team\n");
                     team2 = new Team(2);
                 } 
                 else {
