@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class GymSelectionView extends JFrame{
     private JButton selectButton = new JButton("Select");
 
-    public JList<String> gymList;
-    public JScrollPane gymListPane;
+    private JList<String> gymList;
+    private JScrollPane gymListPane;
 
     public GymSelectionView() {
         setTitle("Gym Selection");

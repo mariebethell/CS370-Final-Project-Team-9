@@ -7,48 +7,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 // Database imports
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class Account_DAO implements Account_Access_IF{
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/gym_scheduler"; // Use local host for now
-    private static final String DB_USER = "mariebethell";       // Change to your MySQL username
-    private static final String DB_PASSWORD = "database4CS370"; // Change to your MySQL password
-
-    private Connection connection;
-
-    // Constructor that connects to database
-    public Account_DAO() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-        } catch (ClassNotFoundException e) {
-            System.err.println("MySQL JDBC Driver not found: " + e.getMessage());
-        } catch (SQLException e) {
-            System.err.println("Database connection failed: " + e.getMessage());
-        }
-    }
-
-    // Get connection for custom queries
-    public Connection getConnection() {
-        return connection;
-    }
-
-    // Close connection
-    public Connection closeConnection() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            System.err.println("Error closing connection: " + e.getMessage());
-        }
-        return connection;
-    }
+public class Account_DAO extends DB_Connection implements Account_Access_IF {
 
     // Create method
     public void addAccount(Account account) {
@@ -70,20 +31,21 @@ public class Account_DAO implements Account_Access_IF{
 
     // Read methods
     public Account getAccountById(int id) {
-        String query = "SELECT * FROM accounts WHERE id = ?";
+        String query = "SELECT * FROM accounts WHERE account_id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 return new Account(
+                    rs.getInt("account_id"),
                     rs.getString("name"),
                     rs.getString("email"),
                     ""
                 );
             }
         } catch (SQLException e) {
-            System.err.println("Error feching account: " + e.getMessage());
+            System.err.println("Error fetching account: " + e.getMessage());
         }
         return null;
     }
@@ -96,6 +58,7 @@ public class Account_DAO implements Account_Access_IF{
             
             if (rs.next()) {
                 return new Account(
+                    rs.getInt("account_id"),
                     rs.getString("name"),
                     rs.getString("email"),
                     ""
