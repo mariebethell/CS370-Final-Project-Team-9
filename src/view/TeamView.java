@@ -1,6 +1,9 @@
 package src.view;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,7 @@ public class TeamView extends JDialog {
     private JTextField[] playerFields = new JTextField[5];
     private JButton okButton;
     private JButton cancelButton;
+    private JLabel teamManagerLabel;
 
     private boolean confirmed = false;
     private Team team;
@@ -30,6 +34,19 @@ public class TeamView extends JDialog {
         account_dao = new Account_DAO();
 
         setLayout(new BorderLayout());
+
+        // Temporary variables for extracting team manager name and email
+        int teamManagerId = team.getTeamManagerId();
+        Account teamManagerAccount = account_dao.getAccountById(teamManagerId);
+        String teamManagerName = teamManagerAccount.getName();
+        String teamManagerEmail = teamManagerAccount.getEmail();
+
+        teamManagerLabel = new JLabel("Team Manager: " + teamManagerName + " (" + teamManagerEmail + ")");
+        teamManagerLabel.setHorizontalAlignment(JLabel.CENTER); // Center the manager label
+        Border padding = new EmptyBorder(10, 10, 10, 10);
+        teamManagerLabel.setBorder(padding);
+
+        add(teamManagerLabel, BorderLayout.NORTH);
         add(buildFormPanel(team), BorderLayout.CENTER);
         add(buildButtonPanel(), BorderLayout.SOUTH);
 
