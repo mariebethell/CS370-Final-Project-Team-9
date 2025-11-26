@@ -63,9 +63,16 @@ public class TeamView extends JDialog {
 
             playerFields[i] = new JTextField(name, 15);
             
-            // If a name already exists in the databse, make it uneditable unless current user is team manager
+            // If a name already exists in the database, make it uneditable unless current user is team manager
             if (name != "" && team.getTeamManagerId() != current_user.getAccountId()) {
                 playerFields[i].setEnabled(false);
+            }
+            
+            // If current user is not team manager, disable all but one empty input box
+            if (name == "" && team.getTeamManagerId() != current_user.getAccountId()) {
+                if (i > players.size()) {
+                    playerFields[i].setEnabled(false);
+                }
             }
 
             c.gridx = 1;
