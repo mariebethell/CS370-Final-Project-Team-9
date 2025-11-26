@@ -20,9 +20,13 @@ public class TeamView extends JDialog {
     private Team team;
     private Account_DAO account_dao;
 
-    public TeamView(JFrame parent, Team team) {
+    private Account current_user;
+
+    public TeamView(JFrame parent, Team team, Account current_user) {
         super(parent, "Edit Team", true);
         this.team = team;
+        this.current_user = current_user;
+
         account_dao = new Account_DAO();
 
         setLayout(new BorderLayout());
@@ -59,8 +63,8 @@ public class TeamView extends JDialog {
 
             playerFields[i] = new JTextField(name, 15);
             
-            // If a name already exists in the databse, make it uneditable
-            if (name != "") {
+            // If a name already exists in the databse, make it uneditable unless current user is team manager
+            if (name != "" && team.getTeamManagerId() != current_user.getAccountId()) {
                 playerFields[i].setEnabled(false);
             }
 
@@ -114,6 +118,7 @@ public class TeamView extends JDialog {
         if (!confirmed) return null;
 
         Team newTeam = new Team(team.getTeamId(), team.getTeamNum()); // preserve team number
+        newTeam.setTeamManager(team.getTeamManagerId()); // preserve team manager id
         List<Account> players = new ArrayList<>();
 
         for (JTextField field : playerFields) {

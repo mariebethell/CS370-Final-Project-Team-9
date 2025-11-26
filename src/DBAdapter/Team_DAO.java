@@ -15,8 +15,8 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
 
     @Override
     public void createTeam(Team team) {
-        String query = "INSERT INTO teams (team_num, player1_id, player2_id, player3_id, player4_id, player5_id) "
-                     + "VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO teams (team_num, player1_id, player2_id, player3_id, player4_id, player5_id, team_manager_id) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, team.teamNum);
@@ -31,6 +31,8 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
                     stmt.setNull(i + 2, Types.INTEGER);
                 }
             }
+
+            stmt.setInt(MAX_PLAYERS + 2, team.getTeamManagerId());
 
             stmt.executeUpdate();
 
@@ -94,8 +96,8 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
 
             if (rs.next()) {
                 int teamNum = rs.getInt("team_num");
-
                 Team team = new Team(teamId, teamNum);
+
                 List<Account> players = new ArrayList<>();
 
                 for (int i = 1; i <= MAX_PLAYERS; i++) {
@@ -106,6 +108,10 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
                 }
 
                 team.setTeamMembers(players);
+
+                int teamMangerId = rs.getInt("team_manager_id");
+                team.setTeamManager(teamMangerId);
+                
                 return team;
             }
 
@@ -139,6 +145,10 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
                 }
 
                 team.setTeamMembers(players);
+
+                int teamMangerId = rs.getInt("team_manager_id");
+                team.setTeamManager(teamMangerId);
+
                 teams.add(team);
             }
 
