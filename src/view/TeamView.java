@@ -19,6 +19,7 @@ public class TeamView extends JDialog {
     private JButton okButton;
     private JButton cancelButton;
     private JLabel teamManagerLabel;
+    private JLabel createOrJoinTeamLabel;
 
     private boolean confirmed = false;
     private Team team;
@@ -35,6 +36,37 @@ public class TeamView extends JDialog {
 
         setLayout(new BorderLayout());
 
+        add(buildLabelPanel(), BorderLayout.NORTH);
+        add(buildFormPanel(team), BorderLayout.CENTER);
+        add(buildButtonPanel(), BorderLayout.SOUTH);
+
+        pack();
+        setLocationRelativeTo(parent);
+    }
+
+    /**
+     *  LABEL PANEL: Team Manager and Join/Create Team labels
+     */
+
+    private JPanel buildLabelPanel() {
+        JPanel panel = new JPanel(); 
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        createOrJoinTeamLabel = new JLabel();
+        
+        if (team.getPlayers().size() == 0) {
+            createOrJoinTeamLabel.setText("Create New Team");
+        }
+        else {
+            createOrJoinTeamLabel.setText("Join Team");
+        }
+
+        Border create_or_join_padding = new EmptyBorder(10, 10, 0, 10);
+        createOrJoinTeamLabel.setHorizontalAlignment(JLabel.CENTER);
+        createOrJoinTeamLabel.setBorder(create_or_join_padding);
+
+        panel.add(createOrJoinTeamLabel);
+
         // Temporary variables for extracting team manager name and email
         int teamManagerId = team.getTeamManagerId();
         Account teamManagerAccount = account_dao.getAccountById(teamManagerId);
@@ -43,15 +75,13 @@ public class TeamView extends JDialog {
 
         teamManagerLabel = new JLabel("Team Manager: " + teamManagerName + " (" + teamManagerEmail + ")");
         teamManagerLabel.setHorizontalAlignment(JLabel.CENTER); // Center the manager label
-        Border padding = new EmptyBorder(10, 10, 10, 10);
-        teamManagerLabel.setBorder(padding);
+        
+        Border manager_padding = new EmptyBorder(10, 10, 10, 10);
+        teamManagerLabel.setBorder(manager_padding);
 
-        add(teamManagerLabel, BorderLayout.NORTH);
-        add(buildFormPanel(team), BorderLayout.CENTER);
-        add(buildButtonPanel(), BorderLayout.SOUTH);
+        panel.add(teamManagerLabel);
 
-        pack();
-        setLocationRelativeTo(parent);
+        return panel;
     }
 
     /** -------------------------------------------------------------------------------------
