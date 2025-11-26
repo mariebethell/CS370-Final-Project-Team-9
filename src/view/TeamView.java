@@ -181,7 +181,20 @@ public class TeamView extends JDialog {
             if (!text.isBlank()) {
                 Account a = account_dao.getAccountByEmail(text);
                 if (a != null) {
-                    players.add(a);
+                    // Check for player uniqueness to prevent duplicates
+                    boolean unique = true;
+                    for (Account player : players) {
+                        if (a.getAccountId() == player.getAccountId()) {
+                            unique = false;
+                        }
+                    }
+
+                    if (unique) {
+                        players.add(a);
+                    }
+                    else {
+                        System.out.println(text + " was already in the team");
+                    }
                 }
                 else {
                     System.out.println(text + " was not found in the Account database");
