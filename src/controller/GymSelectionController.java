@@ -26,12 +26,12 @@ public class GymSelectionController {
 
         // Extract gym names and store in a DefaultListModel so it can be passed to GymSelectionView
         // TODO: extract address as well, requires modification of Gym class to include an address attribute
-        DefaultListModel<String> gymNames = new DefaultListModel<>();
+       /* DefaultListModel<String> gymNames = new DefaultListModel<>();
         for (Gym gym : gyms) {
             gymNames.addElement(gym.getChain());
-        }
+        } */
     
-        this.gymSelectionView.addComponents(gymNames);
+        this.gymSelectionView.addComponents(gyms);
         
         initController();
     }
