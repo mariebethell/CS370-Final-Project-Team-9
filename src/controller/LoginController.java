@@ -11,6 +11,8 @@ public class LoginController {
     private LoginView loginView;
     private MainApp app;
 
+    private Account_DAO account_dao = new Account_DAO();
+
     public LoginController(LoginView view, MainApp app) {
         this.loginView = view;
         this.app = app;
@@ -34,6 +36,12 @@ public class LoginController {
             System.out.println("Login verified!");
             this.loginView.setVisible(false);
             app.showSelectionView();
+
+            // After validation, save user credentials to main app instance variable
+            // This way currentUser can be accessed from any controller that has an instance of main app passed to it
+            Account currentUser = account_dao.getAccountByEmail(inputUsername);
+            app.setCurrentUser(currentUser);
+            
             return;
         }
         else {

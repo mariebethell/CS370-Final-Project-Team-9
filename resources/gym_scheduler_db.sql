@@ -2,6 +2,17 @@
 CREATE DATABASE IF NOT EXISTS gym_scheduler;
 USE gym_scheduler;
 
+-- Disable foreign key checks
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- Drop tables
+DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS teams;
+DROP TABLE IF EXISTS gyms;
+
+-- add all other tables
+
 -- Table for user accounts
 CREATE TABLE accounts (
     account_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -40,7 +51,9 @@ CREATE TABLE teams (
     player3_id INT,
     player4_id INT,
     player5_id INT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    team_manager_id INT,
+    FOREIGN KEY (team_manager_id) REFERENCES accounts(account_id) ON DELETE SET NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table for games
@@ -79,3 +92,6 @@ INSERT INTO accounts (name, email, password_hash, team_num) VALUES
 ('Benjamin', 'benjamin@example.com', 'password', NULL),
 ('Sarah', 'sarah@example.com', 'password', NULL),
 ('Logan', 'logan@example.com', 'password', NULL);
+
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS = 1;

@@ -3,6 +3,7 @@ package src.app;
 import javax.swing.SwingUtilities;
 import src.view.*;
 import src.controller.*;
+import src.model.*;
 
 public class MainApp {            
     
@@ -13,6 +14,9 @@ public class MainApp {
     private LoginController loginController;
     private GymSelectionController gymSelectionController;
     private SchedulerController schedulerController;
+
+    // MainApp also keeps a reference to the current logged in user
+    private Account currentUser;
 
     public MainApp() {
         loginView = new LoginView();
@@ -46,6 +50,14 @@ public class MainApp {
         loginView.setVisible(false);
         selectionView.setVisible(false);
         schedulerView.setVisible(false);
+    }
+
+    public void setCurrentUser(Account user) {
+        this.currentUser = user;
+    }
+
+    public Account getCurrentUser() {
+        return currentUser;
     }
 
     public static void main(String[] args) {

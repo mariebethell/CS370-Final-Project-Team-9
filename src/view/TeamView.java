@@ -1,6 +1,9 @@
 package src.view;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,22 +18,70 @@ public class TeamView extends JDialog {
     private JTextField[] playerFields = new JTextField[5];
     private JButton okButton;
     private JButton cancelButton;
+    private JLabel teamManagerLabel;
+    private JLabel createOrJoinTeamLabel;
 
     private boolean confirmed = false;
     private Team team;
     private Account_DAO account_dao;
 
-    public TeamView(JFrame parent, Team team) {
+    private Account current_user;
+
+    public TeamView(JFrame parent, Team team, Account current_user) {
         super(parent, "Edit Team", true);
         this.team = team;
+        this.current_user = current_user;
+
         account_dao = new Account_DAO();
 
         setLayout(new BorderLayout());
+
+        add(buildLabelPanel(), BorderLayout.NORTH);
         add(buildFormPanel(team), BorderLayout.CENTER);
         add(buildButtonPanel(), BorderLayout.SOUTH);
 
         pack();
         setLocationRelativeTo(parent);
+    }
+
+    /**
+     *  LABEL PANEL: Team Manager and Join/Create Team labels
+     */
+
+    private JPanel buildLabelPanel() {
+        JPanel panel = new JPanel(); 
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        createOrJoinTeamLabel = new JLabel();
+        
+        if (team.getPlayers().size() == 0) {
+            createOrJoinTeamLabel.setText("Create New Team");
+        }
+        else {
+            createOrJoinTeamLabel.setText("Join Team");
+        }
+
+        Border create_or_join_padding = new EmptyBorder(10, 10, 0, 10);
+        createOrJoinTeamLabel.setHorizontalAlignment(JLabel.CENTER);
+        createOrJoinTeamLabel.setBorder(create_or_join_padding);
+
+        panel.add(createOrJoinTeamLabel);
+
+        // Temporary variables for extracting team manager name and email
+        int teamManagerId = team.getTeamManagerId();
+        Account teamManagerAccount = account_dao.getAccountById(teamManagerId);
+        String teamManagerName = teamManagerAccount.getName();
+        String teamManagerEmail = teamManagerAccount.getEmail();
+
+        teamManagerLabel = new JLabel("Team Manager: " + teamManagerName + " (" + teamManagerEmail + ")");
+        teamManagerLabel.setHorizontalAlignment(JLabel.CENTER); // Center the manager label
+        
+        Border manager_padding = new EmptyBorder(10, 10, 10, 10);
+        teamManagerLabel.setBorder(manager_padding);
+
+        panel.add(teamManagerLabel);
+
+        return panel;
     }
 
     /** -------------------------------------------------------------------------------------
@@ -58,6 +109,18 @@ public class TeamView extends JDialog {
                             : "";
 
             playerFields[i] = new JTextField(name, 15);
+            
+            // If a name already exists in the database, make it uneditable unless current user is team manager
+            if (name != "" && team.getTeamManagerId() != current_user.getAccountId()) {
+                playerFields[i].setEnabled(false);
+            }
+            
+            // If current user is not team manager, disable all but one empty input box
+            if (name == "" && team.getTeamManagerId() != current_user.getAccountId()) {
+                if (i > players.size()) {
+                    playerFields[i].setEnabled(false);
+                }
+            }
 
             c.gridx = 1;
             panel.add(playerFields[i], c);
@@ -109,6 +172,7 @@ public class TeamView extends JDialog {
         if (!confirmed) return null;
 
         Team newTeam = new Team(team.getTeamId(), team.getTeamNum()); // preserve team number
+        newTeam.setTeamManager(team.getTeamManagerId()); // preserve team manager id
         List<Account> players = new ArrayList<>();
 
         for (JTextField field : playerFields) {
@@ -117,7 +181,20 @@ public class TeamView extends JDialog {
             if (!text.isBlank()) {
                 Account a = account_dao.getAccountByEmail(text);
                 if (a != null) {
-                    players.add(a);
+                    // Check for player uniqueness to prevent duplicates
+                    boolean unique = true;
+                    for (Account player : players) {
+                        if (a.getAccountId() == player.getAccountId()) {
+                            unique = false;
+                        }
+                    }
+
+                    if (unique) {
+                        players.add(a);
+                    }
+                    else {
+                        System.out.println(text + " was already in the team");
+                    }
                 }
                 else {
                     System.out.println(text + " was not found in the Account database");
