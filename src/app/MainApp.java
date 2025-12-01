@@ -4,6 +4,8 @@ import javax.swing.SwingUtilities;
 import src.view.*;
 import src.controller.*;
 
+import src.model.*;
+
 public class MainApp {            
     
     private LoginView loginView;
@@ -13,6 +15,8 @@ public class MainApp {
     private LoginController loginController;
     private GymSelectionController gymSelectionController;
     private SchedulerController schedulerController;
+
+    private Gym currentGym;
 
     public MainApp() {
         loginView = new LoginView();
@@ -46,6 +50,14 @@ public class MainApp {
         loginView.setVisible(false);
         selectionView.setVisible(false);
         schedulerView.setVisible(false);
+    }
+
+    public void setCurrentGym(Gym gym) {
+        currentGym = gym;
+    }
+
+    public Gym getCurrentGym() {
+        return currentGym;
     }
 
     public static void main(String[] args) {

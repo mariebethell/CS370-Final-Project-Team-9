@@ -23,6 +23,7 @@ public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
 
             while (rs.next()) {
                 Gym retreivedGym = new Gym( 
+                    rs.getInt("gym_id"),
                     rs.getString("chain_name"),
                     rs.getInt("location_number"),
                     rs.getString("hours"),

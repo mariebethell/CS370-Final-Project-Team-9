@@ -14,7 +14,8 @@ import javax.swing.table.*;
 public class GymSelectionView extends JFrame{
     private JButton selectButton = new JButton("Select");
 
-    private JList<String> gymList;
+    private DefaultTableModel model;
+    private JTable table;
     private JScrollPane gymListPane;
 
     public GymSelectionView() {
@@ -31,20 +32,24 @@ public class GymSelectionView extends JFrame{
 
     public void addComponents(List<Gym> gyms) {
         // Use JTable to display gym names and addresses
-        String[] columnNames = {"Gym", "Address"};
+        String[] columnNames = {"ID", "Gym", "Address"};
 
-        DefaultTableModel model = new DefaultTableModel();
+        model = new DefaultTableModel();
         model.setColumnIdentifiers(columnNames);
 
         for (Gym gym : gyms) {
             // Create an Object array for the current row's data
-            Object[] rowData = new Object[2];
-            rowData[0] = gym.getChain();
-            rowData[1] = gym.getAddress();
+            Object[] rowData = new Object[3];
+            rowData[0] = gym.getId();
+            rowData[1] = gym.getChain();
+            rowData[2] = gym.getAddress();
             model.addRow(rowData);
         }
 
-        JTable table = new JTable(model);
+        table = new JTable(model);
+
+        // Hide ID column (user does not need to see internal DB ids)
+        table.removeColumn(table.getColumnModel().getColumn(0));
 
         // Create a JScrollPane for the JTable
         gymListPane = new JScrollPane(table);
@@ -57,4 +62,18 @@ public class GymSelectionView extends JFrame{
         buttonPanel.add(selectButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
+
+    public int getSelectedGym() {
+        int selectedRowIndex = table.getSelectedRow();
+
+        Object selectedValue = null;
+        if (selectedRowIndex != -1) { // Check if a row is actually selected
+            selectedValue = table.getModel().getValueAt(selectedRowIndex, 0);
+            // You can cast selectedValue to the appropriate type (e.g., String)
+            System.out.println("Selected value: " + selectedValue);
+        }
+
+        return (Integer) selectedValue;
+    }
+
 }
