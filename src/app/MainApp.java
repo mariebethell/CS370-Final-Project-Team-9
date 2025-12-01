@@ -5,8 +5,6 @@ import src.view.*;
 import src.controller.*;
 import src.model.*;
 
-import src.model.*;
-
 public class MainApp {            
     
     private LoginView loginView;

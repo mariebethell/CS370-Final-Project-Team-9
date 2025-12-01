@@ -69,7 +69,6 @@ public class GymSelectionView extends JFrame{
         Object selectedValue = null;
         if (selectedRowIndex != -1) { // Check if a row is actually selected
             selectedValue = table.getModel().getValueAt(selectedRowIndex, 0);
-            // You can cast selectedValue to the appropriate type (e.g., String)
             System.out.println("Selected value: " + selectedValue);
         }
 
