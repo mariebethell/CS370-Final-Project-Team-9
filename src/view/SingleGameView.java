@@ -38,7 +38,7 @@ public class SingleGameView extends JPanel {
         gameInfoPanel.setOpaque(false);  
         gameInfoPanel.setPreferredSize(new Dimension(80, 80));
 
-        gameIdLabel = new JLabel("Game");
+        gameIdLabel = new JLabel("Game " + game.getGameId());
         gameIdLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         gameTimeLabel = new JLabel(formatTime(game));

@@ -10,6 +10,7 @@ import src.DBAdapter.Team_DAO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
 
 import java.awt.event.*;
 
@@ -42,7 +43,7 @@ public class SchedulerController {
 
             LocalDateTime time = dialog.getSelectedTime();
             if (time != null) {
-                Game game = new Game(1, null, null, time);
+                Game game = new Game(app.getCurrentGym().getId(), null, null, time);
                 game_dao.createGame(game);
                 refreshSchedulerView();
             }
@@ -52,8 +53,15 @@ public class SchedulerController {
         wireGameButtons();
     }
 
-    private void refreshSchedulerView() {
-        List<Game> games = game_dao.getAllGamesFromGym(1);
+    public void refreshSchedulerView() {
+        List<Game> games;
+        
+        if (app.getCurrentGym() == null) {
+            games = new ArrayList<>();
+        }
+        else {
+            games = game_dao.getAllGamesFromGym(app.getCurrentGym().getId());
+        }
 
         view.refreshView(games);
         wireGameButtons();
@@ -75,8 +83,10 @@ public class SchedulerController {
 
                 Team team1 = null;
                 if (team1Id == 0) {
-                    System.out.println("Creating new team\n");
                     team1 = new Team(1);
+
+                    // Set the account that is currently logged in and creating the team as the team manager
+                    team1.setTeamManager(app.getCurrentUser().getAccountId());
                 }
                 else {
                     team1 = team_dao.getTeamById(team1Id);
@@ -89,8 +99,10 @@ public class SchedulerController {
 
                 Team team2 = null;
                 if (team2Id == 0) {
-                    System.out.println("Creating new team\n");
                     team2 = new Team(2);
+
+                    // Set the account that is currently logged in and creating the team as the team manager
+                    team2.setTeamManager(app.getCurrentUser().getAccountId());
                 } 
                 else {
                     team2 = team_dao.getTeamById(team2Id);
@@ -102,7 +114,7 @@ public class SchedulerController {
 
     private void openTeamEditor(SingleGameView gameView, Team team, int teamNum) {
 
-        TeamView editor = new TeamView(view, team);
+        TeamView editor = new TeamView(view, team, app.getCurrentUser());
         editor.setVisible(true);
 
         // If user pressed OK

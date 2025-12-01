@@ -4,19 +4,31 @@ public class Gym {
     int number;
     String hours;
     int numCourts;
+    String address;
+    int id;
 
-    public Gym(String chain, int number, String hours, int numCourts) {
+    public Gym(int id, String chain, int number, String hours, int numCourts, String address) {
+        this.id = id;
         this.chain = chain;
         this.number = number;
         this.hours = hours;
         this.numCourts = numCourts;
+        this.address = address;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getChain() {
         return chain;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public String displayInfo(){
-        return "Gym Chain: " + chain + "\nGym Number: " + number + "Hours: " + hours + "\nNumber of Courts: " + numCourts;
+        return "Gym Chain: " + chain + "\nGym Number: " + number + "Hours: " + hours + "\nNumber of Courts: " + numCourts + "\nAddress: " + address;
     }
 }

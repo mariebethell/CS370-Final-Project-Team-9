@@ -8,6 +8,7 @@ public class Team {
     public int teamId = 0;
     private List<Account> players;
     private final int MAXCOUNT = 5;
+    private int teamManagerId;
 
     public Team(int teamNum) {
         this.teamNum = teamNum;
@@ -40,6 +41,7 @@ public class Team {
         }
     }
 
+    // Getters
     public List<Account> getPlayers() {
         return new ArrayList<>(players); 
     }
@@ -50,6 +52,15 @@ public class Team {
 
     public int getTeamId() {
         return teamId;
+    }
+
+    public int getTeamManagerId() {
+        return teamManagerId;
+    }
+
+    // Setters
+    public void setTeamManager(int managerId) {
+        teamManagerId = managerId;
     }
 
 }

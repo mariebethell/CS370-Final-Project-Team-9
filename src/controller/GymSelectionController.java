@@ -23,15 +23,9 @@ public class GymSelectionController {
         // Get list of all gyms from the database, returned as a list of Gym objects
         List<Gym> gyms = new ArrayList<>();
         gyms = gym_dao.getAllGyms();
-
-        // Extract gym names and store in a DefaultListModel so it can be passed to GymSelectionView
-        // TODO: extract address as well, requires modification of Gym class to include an address attribute
-        DefaultListModel<String> gymNames = new DefaultListModel<>();
-        for (Gym gym : gyms) {
-            gymNames.addElement(gym.getChain());
-        }
     
-        this.gymSelectionView.addComponents(gymNames);
+        // Send gyms to GymSelectionView for display
+        this.gymSelectionView.addComponents(gyms);
         
         initController();
     }
@@ -41,8 +35,16 @@ public class GymSelectionController {
     }
 
     private void handleGymSelection() {
-        // handle it in the future
-        // change view to SchedulerController
+        // Get Gym ID from view
+        int currentGymId = this.gymSelectionView.getSelectedGymId();
+
+        // Get Gym with that id from database
+        Gym currentGym = gym_dao.getGymById(currentGymId);
+
+        // Set MainApp's current gym to the selected gym
+        app.setCurrentGym(currentGym);
+
+        // Change view to SchedulerController
         app.showSchedulerView();
     }
 }
