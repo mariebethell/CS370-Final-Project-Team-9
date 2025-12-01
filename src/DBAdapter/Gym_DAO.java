@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 // Database imports
 import java.sql.*;
+import java.time.LocalTime;
 
 public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
     public List<Gym> getAllGyms() {
@@ -27,7 +28,8 @@ public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
                     rs.getInt("gym_id"),
                     rs.getString("chain_name"),
                     rs.getInt("location_number"),
-                    rs.getString("hours"),
+                    rs.getTime("open_time").toLocalTime(),
+                    rs.getTime("close_time").toLocalTime(),
                     rs.getInt("num_courts"),
                     rs.getString("address")
                 );
@@ -55,7 +57,8 @@ public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
                     rs.getInt("gym_id"),
                     rs.getString("chain_name"),
                     rs.getInt("location_number"),
-                    rs.getString("hours"),
+                    rs.getTime("open_time").toLocalTime(),
+                    rs.getTime("close_time").toLocalTime(),
                     rs.getInt("num_courts"),
                     rs.getString("address")
                 );

@@ -35,7 +35,8 @@ CREATE TABLE gyms (
     city VARCHAR(100),
     state VARCHAR(50),
     zip_code VARCHAR(10),
-    hours VARCHAR(100),
+    open_time TIME,
+    close_time TIME,
     num_courts INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_chain (chain_name),
@@ -74,26 +75,29 @@ CREATE TABLE games (
 );
 
 -- Gym data
-INSERT INTO gyms (chain_name, location_number, address, city, state, zip_code, hours, num_courts) VALUES
-('The Facility Sports', 1, '1285 Stone Dr #101', 'San Marcos', 'CA', '92078', '6:00 AM - 10:00 PM', 4),
-('LA Fitness', 1, '125 N Twin Oaks Valley Rd', 'San Marcos', 'CA', '92069', '5:00 AM - 11:00 PM', 3),
-('Corky Smith Gymnasium', 1, '274 Pico Ave', 'San Marcos', 'CA', '92069', '6:00 AM - 9:00 PM', 2),
-('CSUSM Clarke Field House', 1, '333 S Twin Oaks Valley Rd', 'San Marcos', 'CA', '92078', '6:00 AM - 10:00 PM', 5),
-('The Hoop House San Marcos', 1, '247 Venture St #100', 'San Marcos', 'CA', '92078', '24 Hours', 6),
-('Redline Athletics San Marcos', 1, '2937 Norman Strasse Rd', 'San Marcos', 'CA', '92069', '3:00 PM - 9:00 PM', 2),
-('EōS Fitness', 1, '3533 Cannon Rd', 'Oceanside', 'CA', '92056', '5:00 AM - 10:00 PM', 3),
-('Performance360 Strength & Conditioning', 1, '809 W San Marcos Blvd', 'San Marcos', 'CA', '92078', '6:00 AM - 8:00 PM', 2),
-('MOA Fitness', 1, '737 Windy Point Dr Suite H & I', 'San Marcos', 'CA', '92069', '5:00 AM - 9:00 PM', 2),
-('OHM Fitness San Marcos Grand Plaza', 1, '137 S Las Posas Rd suite 253', 'San Marcos', 'CA', '92078', '5:00 AM - 10:00 PM', 2),
-('Self Made Training Facility San Marcos', 1, '803 W San Marcos Blvd', 'San Marcos', 'CA', '92078', '5:00 AM - 9:00 PM', 2),
-('F45 Training West San Marcos', 1, '727 W San Marcos Blvd UNIT 111', 'San Marcos', 'CA', '92078', '6:00 AM - 8:00 PM', 2),
-('Citizen Athletics Club', 1, '1251 Activity Dr Suite E and F', 'Vista', 'CA', '92081', '5:00 AM - 10:00 PM', 3),
-('Planet Fitness', 1, '641 S Rancho Santa Fe Rd', 'San Marcos', 'CA', '92078', '24 Hours', 4),
-('LA Fitness', 2, '324 Sycamore Ave', 'Vista', 'CA', '92083', '5:00 AM - 11:00 PM', 3),
-('Hardcore Fitness San Marcos', 1, '1284 W San Marcos Blvd', 'San Marcos', 'CA', '92078', '24 Hours', 2),
-('Vista Athletic Club', 1, '1910 Shadowridge Dr #107', 'Vista', 'CA', '92081', '5:00 AM - 10:00 PM', 3),
-('Anytime Fitness', 1, '1234 E Mission Rd', 'San Marcos', 'CA', '92069', '24 Hours', 2),
-('Bigger Picture Fitness', 1, '1740 La Costa Meadows Dr #250', 'San Marcos', 'CA', '92078', '5:00 AM - 9:00 PM', 2);
+INSERT INTO gyms (
+    chain_name, location_number, address, city, state, zip_code,
+    open_time, close_time, num_courts
+) VALUES
+('The Facility Sports', 1, '1285 Stone Dr #101', 'San Marcos', 'CA', '92078', '06:00:00', '22:00:00', 4),
+('LA Fitness', 1, '125 N Twin Oaks Valley Rd', 'San Marcos', 'CA', '92069', '05:00:00', '23:00:00', 3),
+('Corky Smith Gymnasium', 1, '274 Pico Ave', 'San Marcos', 'CA', '92069', '06:00:00', '21:00:00', 2),
+('CSUSM Clarke Field House', 1, '333 S Twin Oaks Valley Rd', 'San Marcos', 'CA', '92078', '06:00:00', '22:00:00', 5),
+('The Hoop House San Marcos', 1, '247 Venture St #100', 'San Marcos', 'CA', '92078', '00:00:00', '23:59:59', 6),
+('Redline Athletics San Marcos', 1, '2937 Norman Strasse Rd', 'San Marcos', 'CA', '92069', '15:00:00', '21:00:00', 2),
+('EōS Fitness', 1, '3533 Cannon Rd', 'Oceanside', 'CA', '92056', '05:00:00', '22:00:00', 3),
+('Performance360 Strength & Conditioning', 1, '809 W San Marcos Blvd', 'San Marcos', 'CA', '92078', '06:00:00', '20:00:00', 2),
+('MOA Fitness', 1, '737 Windy Point Dr Suite H & I', 'San Marcos', 'CA', '92069', '05:00:00', '21:00:00', 2),
+('OHM Fitness San Marcos Grand Plaza', 1, '137 S Las Posas Rd suite 253', 'San Marcos', 'CA', '92078', '05:00:00', '22:00:00', 2),
+('Self Made Training Facility San Marcos', 1, '803 W San Marcos Blvd', 'San Marcos', 'CA', '92078', '05:00:00', '21:00:00', 2),
+('F45 Training West San Marcos', 1, '727 W San Marcos Blvd UNIT 111', 'San Marcos', 'CA', '92078', '06:00:00', '20:00:00', 2),
+('Citizen Athletics Club', 1, '1251 Activity Dr Suite E and F', 'Vista', 'CA', '92081', '05:00:00', '22:00:00', 3),
+('Planet Fitness', 1, '641 S Rancho Santa Fe Rd', 'San Marcos', 'CA', '92078', '00:00:00', '23:59:59', 4),
+('LA Fitness', 2, '324 Sycamore Ave', 'Vista', 'CA', '92083', '05:00:00', '23:00:00', 3),
+('Hardcore Fitness San Marcos', 1, '1284 W San Marcos Blvd', 'San Marcos', 'CA', '92078', '00:00:00', '23:59:59', 2),
+('Vista Athletic Club', 1, '1910 Shadowridge Dr #107', 'Vista', 'CA', '92081', '05:00:00', '22:00:00', 3),
+('Anytime Fitness', 1, '1234 E Mission Rd', 'San Marcos', 'CA', '92069', '00:00:00', '23:59:59', 2),
+('Bigger Picture Fitness', 1, '1740 La Costa Meadows Dr #250', 'San Marcos', 'CA', '92078', '05:00:00', '21:00:00', 2);
 
 -- Insert sample account data (using unhashed passwords for now)
 INSERT INTO accounts (name, email, password_hash, team_num) VALUES
