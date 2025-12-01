@@ -26,7 +26,8 @@ public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
                     rs.getString("chain_name"),
                     rs.getInt("location_number"),
                     rs.getString("hours"),
-                    rs.getInt("num_courts")
+                    rs.getInt("num_courts"),
+                    rs.getString("address")
                 );
 
                 gyms.add(retreivedGym);
