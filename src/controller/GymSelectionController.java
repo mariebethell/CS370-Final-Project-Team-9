@@ -41,9 +41,10 @@ public class GymSelectionController {
         // Get Gym with that id from database
         Gym currentGym = gym_dao.getGymById(currentGymId);
 
+        // Set MainApp's current gym to the selected gym
         app.setCurrentGym(currentGym);
 
-        // change view to SchedulerController
+        // Change view to SchedulerController
         app.showSchedulerView();
     }
 }

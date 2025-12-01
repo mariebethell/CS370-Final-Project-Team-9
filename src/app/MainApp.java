@@ -65,9 +65,9 @@ public class MainApp {
     public Gym getCurrentGym() {
         return currentGym;
     }
-    
+
     public void setCurrentUser(Account user) {
-        this.currentUser = user;
+        currentUser = user;
     }
 
     public Account getCurrentUser() {
