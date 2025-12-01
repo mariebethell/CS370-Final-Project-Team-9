@@ -10,6 +10,7 @@ import src.DBAdapter.Team_DAO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
 
 import java.awt.event.*;
 
@@ -42,7 +43,7 @@ public class SchedulerController {
 
             LocalDateTime time = dialog.getSelectedTime();
             if (time != null) {
-                Game game = new Game(1, null, null, time);
+                Game game = new Game(app.getCurrentGym().getId(), null, null, time);
                 game_dao.createGame(game);
                 refreshSchedulerView();
             }
@@ -52,8 +53,15 @@ public class SchedulerController {
         wireGameButtons();
     }
 
-    private void refreshSchedulerView() {
-        List<Game> games = game_dao.getAllGamesFromGym(1);
+    public void refreshSchedulerView() {
+        List<Game> games;
+        
+        if (app.getCurrentGym() == null) {
+            games = new ArrayList<>();
+        }
+        else {
+            games = game_dao.getAllGamesFromGym(app.getCurrentGym().getId());
+        }
 
         view.refreshView(games);
         wireGameButtons();

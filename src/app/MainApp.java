@@ -15,8 +15,11 @@ public class MainApp {
     private GymSelectionController gymSelectionController;
     private SchedulerController schedulerController;
 
-    // MainApp also keeps a reference to the current logged in user
+    // MainApp keeps a reference to the current logged in user
     private Account currentUser;
+
+    // MainApp also keeps a reference to the current gym selected by the user
+    private Gym currentGym;
 
     public MainApp() {
         loginView = new LoginView();
@@ -43,6 +46,7 @@ public class MainApp {
 
     public void showSchedulerView() {
         hideAll();
+        schedulerController.refreshSchedulerView();
         schedulerView.setVisible(true);
     }
 
@@ -52,8 +56,16 @@ public class MainApp {
         schedulerView.setVisible(false);
     }
 
+    public void setCurrentGym(Gym gym) {
+        currentGym = gym;
+    }
+
+    public Gym getCurrentGym() {
+        return currentGym;
+    }
+
     public void setCurrentUser(Account user) {
-        this.currentUser = user;
+        currentUser = user;
     }
 
     public Account getCurrentUser() {
