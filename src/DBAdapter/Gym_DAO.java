@@ -1,6 +1,5 @@
 package src.DBAdapter;
 
-import src.model.Account;
 import src.model.Gym;
 import src.DBAdapter.Gym_Access_IF;
 

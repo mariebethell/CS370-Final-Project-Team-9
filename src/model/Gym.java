@@ -41,14 +41,4 @@ public class Gym {
     public LocalTime getCloseTime() {
         return closeTime;
     }
-
-    /**
-    public List<String> convertHoursToList() {
-        
-    }
-    */
-
-    public String displayInfo(){
-        return "Gym Chain: " + chain + "\nGym Number: " + number + "Hours: " + hours + "\nNumber of Courts: " + numCourts + "\nAddress: " + address;
-    }
 }
