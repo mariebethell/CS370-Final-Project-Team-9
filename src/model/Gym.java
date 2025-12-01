@@ -19,7 +19,7 @@ public class Gym {
     public int getId() {
         return id;
     }
-    
+
     public String getChain() {
         return chain;
     }
