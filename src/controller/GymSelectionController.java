@@ -35,7 +35,14 @@ public class GymSelectionController {
     }
 
     private void handleGymSelection() {
-        // handle it in the future
+        // Get Gym ID from view
+        int currentGymId = this.gymSelectionView.getSelectedGymId();
+
+        // Get Gym with that id from database
+        Gym currentGym = gym_dao.getGymById(currentGymId);
+
+        app.setCurrentGym(currentGym);
+
         // change view to SchedulerController
         app.showSchedulerView();
     }

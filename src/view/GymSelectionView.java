@@ -63,7 +63,7 @@ public class GymSelectionView extends JFrame{
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    public int getSelectedGym() {
+    public int getSelectedGymId() {
         int selectedRowIndex = table.getSelectedRow();
 
         Object selectedValue = null;

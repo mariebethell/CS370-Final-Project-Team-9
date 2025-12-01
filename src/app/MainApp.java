@@ -43,6 +43,7 @@ public class MainApp {
 
     public void showSchedulerView() {
         hideAll();
+        schedulerController.refreshSchedulerView();
         schedulerView.setVisible(true);
     }
 
