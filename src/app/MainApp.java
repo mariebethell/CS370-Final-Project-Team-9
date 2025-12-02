@@ -31,7 +31,7 @@ public class MainApp {
         schedulerController = new SchedulerController(schedulerView, this);
 
         showLoginView();
-        // showSchedulerView();
+        //showSchedulerView();
     }
 
     public void showLoginView() {
