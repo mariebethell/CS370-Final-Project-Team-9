@@ -56,12 +56,8 @@ public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
                     rs.getInt("gym_id"),
                     rs.getString("chain_name"),
                     rs.getInt("location_number"),
-<<<<<<< HEAD
                     rs.getTime("open_time").toLocalTime(),
                     rs.getTime("close_time").toLocalTime(),
-=======
-                    rs.getString("hours"),
->>>>>>> 966495db27b754184aecea08900b0dccb83874d2
                     rs.getInt("num_courts"),
                     rs.getString("address")
                 );

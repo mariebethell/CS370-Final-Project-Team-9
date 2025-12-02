@@ -49,6 +49,11 @@ public class SchedulerController {
             }
         });
 
+        view.getBackButton().addActionListener(e -> {
+            app.hideAll();
+            app.showSelectionView();
+        });
+
         // Attach listeners to game buttons
         wireGameButtons();
     }

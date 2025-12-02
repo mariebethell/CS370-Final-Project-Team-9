@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 public class SchedulerView extends JFrame {
     private JButton createGameButton = new JButton("Create Game");
+    private JButton backButton = new JButton("Back");
+    private JPanel backButtonPanel;
     private JList gameList;
     private List<SingleGameView> game_views;
     private JPanel gamePanel;
@@ -30,12 +32,22 @@ public class SchedulerView extends JFrame {
         gamePane = new JScrollPane(gamePanel);
 
         add(gamePane, BorderLayout.CENTER);
+
+        backButtonPanel = new JPanel();
+        backButtonPanel.setLayout(new BorderLayout());
+        backButtonPanel.add(backButton, BorderLayout.WEST);
+
+        add(backButtonPanel, BorderLayout.NORTH);
         add(createGameButton, BorderLayout.SOUTH);
     }
 
 
     public JButton getCreateGameButton() {
         return createGameButton;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
     }
 
     public void addComponents(List<Game> games) {
