@@ -8,8 +8,8 @@ import java.sql.*;
 
 public class DB_Connection {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/gym_scheduler"; // Use local host for now
-    private static final String DB_USER = "root";       // Change to your MySQL username
-    private static final String DB_PASSWORD = "lifeguarding"; // Change to your MySQL password
+    private static final String DB_USER = "mariebethell";       // Change to your MySQL username
+    private static final String DB_PASSWORD = "database4CS370"; // Change to your MySQL password
 
     protected Connection connection;
 
