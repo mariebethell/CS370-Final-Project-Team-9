@@ -1,6 +1,8 @@
 package src.view;
 
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.*;
 
 import src.model.Game;
@@ -72,8 +74,13 @@ public class SingleGameView extends JPanel {
     }
 
     private String formatTime(Game game) {
-        if (game.get_time() == null) return "No time";
-        return game.get_time().toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
+
+        if (game.get_time() == null) {
+            return "No time";
+        }
+
+        return game.get_time().format(formatter);
     }
 
     // ---------------------------------------------------------

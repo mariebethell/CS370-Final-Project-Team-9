@@ -38,7 +38,7 @@ public class SchedulerController {
 
     private void initController() {
         view.getCreateGameButton().addActionListener(e -> {
-            TimeSelectionDialog dialog = new TimeSelectionDialog(view);
+            TimeSelectionDialog dialog = new TimeSelectionDialog(view, app.getCurrentGym());
             dialog.setVisible(true);
 
             LocalDateTime time = dialog.getSelectedTime();
@@ -47,6 +47,11 @@ public class SchedulerController {
                 game_dao.createGame(game);
                 refreshSchedulerView();
             }
+        });
+
+        view.getBackButton().addActionListener(e -> {
+            app.hideAll();
+            app.showSelectionView();
         });
 
         // Attach listeners to game buttons

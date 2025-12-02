@@ -4,7 +4,6 @@ import src.model.Team;
 import java.util.List;
 
 public interface Team_Access_IF {
-
     /**
      * Create a new team in the database.
      */
