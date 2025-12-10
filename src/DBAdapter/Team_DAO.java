@@ -1,3 +1,7 @@
+/**
+ * Implements methods of the Account_Access_IF. Inherits DB_Connection constructor and methods.
+ */
+
 package src.DBAdapter;
 
 import src.model.Team;
@@ -13,7 +17,7 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
     private static final int MAX_PLAYERS = 5;
     private Account_DAO account_dao = new Account_DAO();
 
-    @Override
+    // Create
     public void createTeam(Team team) {
         String query = "INSERT INTO teams (team_num, player1_id, player2_id, player3_id, player4_id, player5_id, team_manager_id) "
                      + "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -48,44 +52,7 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
         }
     }
 
-    @Override
-    public void deleteTeam(int teamId) {
-        String query = "DELETE FROM teams WHERE team_id = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, teamId);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error deleting team: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public void updateTeam(Team team) {
-        String query = "UPDATE teams SET player1_id = ?, player2_id = ?, player3_id = ?, "
-                     + "player4_id = ?, player5_id = ? WHERE team_id = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-
-            List<Account> players = team.getPlayers();
-
-            for (int i = 0; i < MAX_PLAYERS; i++) {
-                if (i < players.size()) {
-                    stmt.setInt(i + 1, players.get(i).getAccountId());
-                } else {
-                    stmt.setNull(i + 1, Types.INTEGER);
-                }
-            }
-
-            stmt.setInt(6, team.teamId);
-            stmt.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println("Error updating team: " + e.getMessage());
-        }
-    }
-
-    @Override
+    // Read
     public Team getTeamById(int teamId) {
         String query = "SELECT * FROM teams WHERE team_id = ?";
 
@@ -122,7 +89,6 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
         return null;
     }
 
-    @Override
     public List<Team> getAllTeams() {
         List<Team> teams = new ArrayList<>();
 
@@ -157,5 +123,42 @@ public class Team_DAO extends DB_Connection implements Team_Access_IF {
         }
 
         return teams;
+    }
+
+    // Update
+    public void updateTeam(Team team) {
+        String query = "UPDATE teams SET player1_id = ?, player2_id = ?, player3_id = ?, "
+                     + "player4_id = ?, player5_id = ? WHERE team_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+
+            List<Account> players = team.getPlayers();
+
+            for (int i = 0; i < MAX_PLAYERS; i++) {
+                if (i < players.size()) {
+                    stmt.setInt(i + 1, players.get(i).getAccountId());
+                } else {
+                    stmt.setNull(i + 1, Types.INTEGER);
+                }
+            }
+
+            stmt.setInt(6, team.teamId);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Error updating team: " + e.getMessage());
+        }
+    }
+
+    // Delete
+    public void deleteTeam(int teamId) {
+        String query = "DELETE FROM teams WHERE team_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, teamId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error deleting team: " + e.getMessage());
+        }
     }
 }

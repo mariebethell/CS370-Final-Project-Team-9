@@ -1,15 +1,17 @@
+/**
+ * GymSelectionView - Displays a list of gyms (names and addresses). Allows user to make a selection.
+ */
+
 package src.view;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import java.awt.*;
+import javax.swing.table.*;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import src.model.Gym;
-import javax.swing.table.*;
 
 public class GymSelectionView extends JFrame{
     private JButton selectButton = new JButton("Select");
@@ -31,6 +33,10 @@ public class GymSelectionView extends JFrame{
     }
 
     public void addComponents(List<Gym> gyms) {
+        /**
+         * Constructs Swing components and adds gyms to the scroll pane.
+         */
+
         // Use JTable to display gym names and addresses
         String[] columnNames = {"ID", "Gym", "Address"};
 
@@ -64,6 +70,9 @@ public class GymSelectionView extends JFrame{
     }
 
     public int getSelectedGymId() {
+        /**
+         * Get gym id (the one that's stored in the database)
+         */
         int selectedRowIndex = table.getSelectedRow();
 
         Object selectedValue = null;

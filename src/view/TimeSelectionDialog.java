@@ -1,11 +1,14 @@
+/**
+ * Helper 'view': Dialog box for selecting a time at which to play a game.
+ */
+
 package src.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -44,6 +47,10 @@ public class TimeSelectionDialog extends JDialog {
     }
 
     public List<String> generateTimeSlots(LocalTime open, LocalTime close, int intervalMinutes) {
+        /** 
+         * Generate times between open and close at specified interval 
+         */
+        
         List<String> slots = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
 
@@ -57,6 +64,9 @@ public class TimeSelectionDialog extends JDialog {
     }
 
     public LocalDateTime getSelectedTime() {
+        /**
+         * Get selected time from dialog box and reutrn as a LocalDateTime object.
+         */
         DateTimeFormatter timeFormatter =
         DateTimeFormatter.ofPattern("h:mm a");
 

@@ -1,3 +1,9 @@
+/**
+ * The MainApp class is the entry point of the application. It initializes the 
+ * views and controllers, as well as keeps track of session information like current
+ * user and current gym.
+ */
+
 package src.app;
 
 import javax.swing.SwingUtilities;
@@ -30,32 +36,42 @@ public class MainApp {
         gymSelectionController = new GymSelectionController(selectionView, this);
         schedulerController = new SchedulerController(schedulerView, this);
 
+        // Apps starts at the login page
         showLoginView();
-        //showSchedulerView();
     }
 
+    /***************************************************
+     * Methods for adjusting view visibility (show/hide)
+     */
     public void showLoginView() {
+        // Show login page.
         hideAll();
         loginView.setVisible(true);
     }
 
     public void showSelectionView() {
+        // Show gym selection page.
         hideAll();
         selectionView.setVisible(true);
     }
 
     public void showSchedulerView() {
+        // Show Scheduler View (game page). View is refreshed before display.
         hideAll();
         schedulerController.refreshSchedulerView();
         schedulerView.setVisible(true);
     }
 
     public void hideAll() {
+        // Hide all views.
         loginView.setVisible(false);
         selectionView.setVisible(false);
         schedulerView.setVisible(false);
     }
 
+    /*******************************************************
+     * Getters and setters for session specific information 
+     */
     public void setCurrentGym(Gym gym) {
         currentGym = gym;
     }
@@ -73,6 +89,7 @@ public class MainApp {
     }
 
     public static void main(String[] args) {
+        // Main function, entry point for the application.
         SwingUtilities.invokeLater(() -> new MainApp());
     }
 }

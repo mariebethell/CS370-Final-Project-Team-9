@@ -1,8 +1,13 @@
+/**
+ * The GymSelectionController is responsible for updating the GymSelectionView and
+ * retrieving/inserting gym data into the database.
+ */
+
 package src.controller;
 
+import src.app.MainApp;
 import src.view.GymSelectionView;
 import src.model.Gym;
-import src.app.MainApp;
 import src.DBAdapter.Gym_DAO;
 
 import java.util.List;
@@ -15,6 +20,11 @@ public class GymSelectionController {
     private Gym_DAO gym_dao;
 
     public GymSelectionController(GymSelectionView view, MainApp app) {
+        /**
+         * Constructor - intializes instance variables and updates view with gyms from database.
+         * This ensures that the GymSelectionView has valid gyms to display as soon as 
+         * the gymSelectionController is created.
+         */
         this.gymSelectionView = view;
         this.app = app;
 
@@ -31,10 +41,19 @@ public class GymSelectionController {
     }
 
     private void initController() {
+        /**
+         * Adds action listeners to buttons
+         */
         this.gymSelectionView.getSelectionButton().addActionListener(e -> handleGymSelection());
     }
 
     private void handleGymSelection() {
+        /**
+         * 1. Retrieves id of gym selected by the user.
+         * 2. Retrieves gym from database.
+         * 3. Updates MainApp's current gym reference with selected gym.
+         */
+
         // Get Gym ID from view
         int currentGymId = this.gymSelectionView.getSelectedGymId();
 

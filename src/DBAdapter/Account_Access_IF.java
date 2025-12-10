@@ -1,3 +1,7 @@
+/**
+ * Account Access Interface class. Methods here are implemented by Account_DAO.
+ */
+
 package src.DBAdapter;
 
 import src.model.Account;
@@ -10,9 +14,6 @@ public interface Account_Access_IF {
     // Read
     public Account getAccountById(int id);
     public Account getAccountByEmail(String email);
-
-    // Getting all accounts could be useful in the future for debugging to make sure we are updating the database correctly
-    // public List<Account> getAllAccounts();
 
     // Update
     public boolean updateAccount(Account account);

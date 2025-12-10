@@ -1,3 +1,7 @@
+/**
+ * Model class for Gym. Also acts as DTO for retrieving Gyms from the database.
+ */
+
 package src.model;
 
 import java.time.LocalTime;
@@ -22,6 +26,7 @@ public class Gym {
         this.address = address;
     }
 
+    // Getters
     public int getId() {
         return id;
     }

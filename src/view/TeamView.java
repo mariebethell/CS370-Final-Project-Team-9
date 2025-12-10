@@ -1,17 +1,21 @@
+/**
+ * Helper 'view': Displays existing team members or allows user to add other entries if 
+ * they are team manager (i.e. if they created the team)
+ */
+
 package src.view;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import src.model.Team;
 import src.model.Account;
 
 import src.DBAdapter.Account_DAO;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeamView extends JDialog {
 
@@ -44,11 +48,10 @@ public class TeamView extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-    /**
-     *  LABEL PANEL: Team Manager and Join/Create Team labels
-     */
-
     private JPanel buildLabelPanel() {
+        /**
+        *  Label Panel: Team Manager and Join/Create Team labels
+        */
         JPanel panel = new JPanel(); 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -84,11 +87,10 @@ public class TeamView extends JDialog {
         return panel;
     }
 
-    /** -------------------------------------------------------------------------------------
-     *  FORM PANEL: Player text boxes
-     * ----------------------------------------------------------------------------------- */
     private JPanel buildFormPanel(Team team) {
-
+        /**
+        *  Form Panel: Player text boxes
+        */
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
 
@@ -131,10 +133,10 @@ public class TeamView extends JDialog {
         return panel;
     }
 
-    /** -------------------------------------------------------------------------------------
-     *  BUTTON PANEL (OK, Cancel)
-     * ----------------------------------------------------------------------------------- */
     private JPanel buildButtonPanel() {
+        /**
+        * Button Panel (OK, Cancel)
+        */
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         okButton = new JButton("OK");
@@ -156,19 +158,16 @@ public class TeamView extends JDialog {
         return panel;
     }
 
-    /** -------------------------------------------------------------------------------------
-     *  RESULT ACCESS
-     * ----------------------------------------------------------------------------------- */
-
     public boolean isConfirmed() {
+        // Determines if the ok button has been pressed yet.
         return confirmed;
     }
 
-    /**
-     * Builds a new Team object from the entered names.
-     * The controller should call this ONLY if isConfirmed() == true.
-     */
     public Team getTeamResult() {
+        /**
+        * Builds a new Team object from the entered names.
+        * The controller should call this only if isConfirmed() == true.
+        */
         if (!confirmed) return null;
 
         Team newTeam = new Team(team.getTeamId(), team.getTeamNum()); // preserve team number

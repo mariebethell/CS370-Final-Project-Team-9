@@ -1,3 +1,7 @@
+/**
+ * Model class for Team. Also used as DTO for Team objects being
+ * retrieved from database, so second constructor intitializes id.
+ */
 package src.model;
 
 import java.util.ArrayList;
@@ -26,7 +30,6 @@ public class Team {
             players.add(newPlayer);
         } else {
             System.out.println("Team is full, cannot add more players.");
-            // later replace with error dialog
         }
     }
 

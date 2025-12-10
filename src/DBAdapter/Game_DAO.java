@@ -1,3 +1,6 @@
+/**
+ * Implements methods of the Game_Access_IF. Inherits DB_Connection constructor and methods.
+ */
 package src.DBAdapter;
 
 import java.util.List;
@@ -10,6 +13,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 public class Game_DAO extends DB_Connection implements Game_Access_IF {
+    // Create
     public void createGame(Game game) {
         String query = "INSERT INTO games (gym_id, game_time) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -27,28 +31,34 @@ public class Game_DAO extends DB_Connection implements Game_Access_IF {
         }
     }
 
-    public void deleteGame(int gameId) {
-        String query = "DELETE FROM games WHERE game_id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, gameId);
+    // Read
+    public List<Game> getAllGamesFromGym(int gymId) {
+        List<Game> games = new ArrayList<>();
+        String query = "SELECT * FROM games WHERE gym_id = ? ORDER BY game_time";
 
-            stmt.executeUpdate();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1, gymId);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int team1_id = rs.getInt("team1_id");
+                int team2_id = rs.getInt("team2_id");
+                LocalDateTime datetime = rs.getTimestamp("game_time").toLocalDateTime();
+                int game_id = rs.getInt("game_id");
+
+                Game retrievedGame = new Game(game_id, gymId, team1_id, team2_id, datetime);
+                games.add(retrievedGame);
+            }
+
         } catch (SQLException e) {
-            System.out.println("Error deleting game: " + e.getMessage());
+            System.out.println("Error retrieving games: " + e.getMessage());
         }
+        return games;
     }
 
-    public void deleteAllGamesFromGym(int gym_id) {
-        String query = "DELETE FROM games WHERE gym_id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setInt(1, gym_id);
-
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error deleting game: " + e.getMessage());
-        }
-    }
-
+    // Update
     public boolean addTeamToGame(int gameId, int teamId, int teamNum) {
         String query;
 
@@ -74,30 +84,26 @@ public class Game_DAO extends DB_Connection implements Game_Access_IF {
         }
     }
 
-    
-    public List<Game> getAllGamesFromGym(int gymId) {
-        List<Game> games = new ArrayList<>();
-        String query = "SELECT * FROM games WHERE gym_id = ? ORDER BY game_time";
+    // Delete
+    public void deleteGame(int gameId) {
+        String query = "DELETE FROM games WHERE game_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, gameId);
 
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setInt(1, gymId);  // <-- You must set the parameter
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                int team1_id = rs.getInt("team1_id");
-                int team2_id = rs.getInt("team2_id");
-                LocalDateTime datetime = rs.getTimestamp("game_time").toLocalDateTime();
-                int game_id = rs.getInt("game_id");
-
-                Game retrievedGame = new Game(game_id, gymId, team1_id, team2_id, datetime);
-                games.add(retrievedGame);
-            }
-
+            stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error retrieving games: " + e.getMessage());
+            System.out.println("Error deleting game: " + e.getMessage());
         }
-        return games;
+    }
+
+    public void deleteAllGamesFromGym(int gym_id) {
+        String query = "DELETE FROM games WHERE gym_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, gym_id);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error deleting game: " + e.getMessage());
+        }
     }
 }

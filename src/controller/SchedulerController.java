@@ -1,7 +1,12 @@
+/**
+ * The SchedulerController is responsible for updating the SchedulerView object and
+ * creating instances of other Views, such as TeamView (Join or Edit Team) and TimeSelectionDialog (needed for Create Team)
+ */
+
 package src.controller;
 
 import src.app.MainApp;
-import src.view.*;
+import src.view.*; // SchedulerView, SingleGameView, TeamView, TimeSelectionDialog
 
 import src.model.Game;
 import src.model.Team;
@@ -32,11 +37,13 @@ public class SchedulerController {
         // Initial render of scheduler
         refreshSchedulerView();
 
-        // Set up button listeners
         initController();
     }
 
     private void initController() {
+        /**
+         * Adds action listeners to buttons.
+         */
         view.getCreateGameButton().addActionListener(e -> {
             TimeSelectionDialog dialog = new TimeSelectionDialog(view, app.getCurrentGym());
             dialog.setVisible(true);
@@ -58,21 +65,12 @@ public class SchedulerController {
         wireGameButtons();
     }
 
-    public void refreshSchedulerView() {
-        List<Game> games;
-        
-        if (app.getCurrentGym() == null) {
-            games = new ArrayList<>();
-        }
-        else {
-            games = game_dao.getAllGamesFromGym(app.getCurrentGym().getId());
-        }
-
-        view.refreshView(games);
-        wireGameButtons();
-    }
-
     private void wireGameButtons() {
+        /**
+         * Attaches listeners to Team1 and Team2 buttons for each game.
+         * This is method is separate from initController so that it can be called
+         * every time the list of games is updated (i.e. SchedulerView is refreshed)
+         */
         for (SingleGameView gv : view.getListOfGameViews()) {
             // Remove old listeners
         
@@ -117,8 +115,28 @@ public class SchedulerController {
         }
     }
 
-    private void openTeamEditor(SingleGameView gameView, Team team, int teamNum) {
+    public void refreshSchedulerView() {
+        /**
+         * Refreshes the list of games being displayed.
+         */
+        List<Game> games;
+        
+        if (app.getCurrentGym() == null) {
+            games = new ArrayList<>(); // Display an empty list if there is no selected gym for some reason.
+        }
+        else {
+            // Otherwise get all the games associated with the current gym from the DB.
+            games = game_dao.getAllGamesFromGym(app.getCurrentGym().getId());
+        }
 
+        view.refreshView(games); // Refresh the SchedulerView.
+        wireGameButtons(); // Rattach button listeners.
+    }
+
+    private void openTeamEditor(SingleGameView gameView, Team team, int teamNum) {
+        /**
+         * Opens the the TeamView editor which allows the user to view current members and join/edit a team (depending on priveleges).
+         */
         TeamView editor = new TeamView(view, team, app.getCurrentUser());
         editor.setVisible(true);
 

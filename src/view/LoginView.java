@@ -1,6 +1,9 @@
+/**
+ * LoginView: First page displayed at startup, responsible for getting username and password.
+ */
+
 package src.view;
 import javax.swing.*;
-
 import java.awt.*;
 
 public class LoginView extends JFrame {

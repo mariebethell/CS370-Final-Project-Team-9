@@ -1,13 +1,23 @@
+/**
+ * Game Access Interface class. Methods here are implemented by Game_DAO.
+ */
+
 package src.DBAdapter;
 
 import src.model.Game;
 import java.util.List;
 
-import java.time.LocalDate;
-
 public interface Game_Access_IF {
+    // Create
     public void createGame(Game game);
-    public void deleteGame(int gameId);
-    public boolean addTeamToGame(int gameId, int teamId, int teamNum);
+
+    // Read
     public List<Game> getAllGamesFromGym(int gymId);
+
+    // Update
+
+    public boolean addTeamToGame(int gameId, int teamId, int teamNum);
+    // Delete
+    public void deleteGame(int gameId);
+    public void deleteAllGamesFromGym(int gym_id);
 }

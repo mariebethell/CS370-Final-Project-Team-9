@@ -1,3 +1,6 @@
+/**
+ * Helper 'view': Displays a single game with game info and two team buttons. 
+ */
 package src.view;
 
 import java.awt.*;
@@ -34,7 +37,7 @@ public class SingleGameView extends JPanel {
         contentPanel.setOpaque(true);
         contentPanel.setBackground(Color.LIGHT_GRAY);
 
-        // ----- Game Info Panel -----
+        // Game Info Panel
         JPanel gameInfoPanel = new JPanel();
         gameInfoPanel.setLayout(new BoxLayout(gameInfoPanel, BoxLayout.Y_AXIS));
         gameInfoPanel.setOpaque(false);  
@@ -52,7 +55,7 @@ public class SingleGameView extends JPanel {
 
         contentPanel.add(gameInfoPanel);
 
-        // ----- Team Buttons -----
+        // Team Buttons
         team1Button = createTeamButton("Team 1");
         team2Button = createTeamButton("Team 2");
 
@@ -63,9 +66,9 @@ public class SingleGameView extends JPanel {
         add(contentPanel, BorderLayout.CENTER);
     }
 
-    // ---------------------------------------------------------
-    // Helpers
-    // ---------------------------------------------------------
+    /*
+     * Helpers
+     */
 
     private JButton createTeamButton(String defaultText) {
         JButton button = new JButton(defaultText);
@@ -83,9 +86,9 @@ public class SingleGameView extends JPanel {
         return game.get_time().format(formatter);
     }
 
-    // ---------------------------------------------------------
-    // Getters
-    // ---------------------------------------------------------
+    /**
+     * Getters
+     */
 
     public JButton getTeam1Button() { 
         return team1Button; 

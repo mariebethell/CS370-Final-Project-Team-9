@@ -1,3 +1,7 @@
+/**
+ * Implements methods of the Account_Access_IF. Inherits DB_Connection constructor and methods.
+ */
+
 package src.DBAdapter;
 
 import src.DBAdapter.Account_Access_IF;
@@ -20,7 +24,6 @@ public class Account_DAO extends DB_Connection implements Account_Access_IF {
                 stmt.setString(1, account.getName());
                 stmt.setString(2, account.getEmail());
                 stmt.setString(3, account.getPassword());
-                stmt.setInt(4, account.getTeamNum());
 
                 stmt.executeUpdate();
             }
@@ -70,25 +73,15 @@ public class Account_DAO extends DB_Connection implements Account_Access_IF {
         return null;
     }
 
-    // We can implement this if we ever want to verify that database is actually being updated correctly for example
-    /*
-    public List<Account> getAllAccounts() {
-        List<Account> accounts = new ArrayList<Account>();
-
-        return accounts;
-    }
-    */
-
     // Update
     public boolean updateAccount(Account account) {
-        String query = "UPDATE accounts SET name = ?, email = ?, password_hash = ?, team_num = ? WHERE email = ?";
+        String query = "UPDATE accounts SET name = ?, email = ?, password_hash = ? WHERE email = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, account.getName());
             stmt.setString(2, account.getEmail());
             stmt.setString(3, account.getPassword());
-            stmt.setInt(4, account.getTeamNum());
-            stmt.setString(5, account.getEmail());
+            stmt.setString(4, account.getEmail());
 
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;

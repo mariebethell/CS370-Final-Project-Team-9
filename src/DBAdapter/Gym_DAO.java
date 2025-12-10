@@ -1,3 +1,7 @@
+/**
+ * Implements methods of the Gym_Access_IF. Inherits DB_Connection constructor and methods.
+ */
+
 package src.DBAdapter;
 
 import src.model.Gym;
@@ -11,6 +15,7 @@ import java.sql.*;
 import java.time.LocalTime;
 
 public class Gym_DAO extends DB_Connection implements Gym_Access_IF {
+    // Read
     public List<Gym> getAllGyms() {
         /**
          * Return list of Gym objects in alphabetical order by chain_name

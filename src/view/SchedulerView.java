@@ -1,3 +1,7 @@
+/**
+ * SchedulerView - Displays a list of Games (represented as SingleGameViews)
+ */
+
 package src.view;
 
 import javax.swing.*;
@@ -53,6 +57,7 @@ public class SchedulerView extends JFrame {
     public void addComponents(List<Game> games) {
         game_views = new ArrayList<>();
 
+        // Create a list of SingleGameViews and add them to the gamePanel
         for (Game game : games) {
             SingleGameView game_view = new SingleGameView(game);
             gamePanel.add(game_view);
